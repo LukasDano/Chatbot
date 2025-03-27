@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {InputField} from "./components/input.jsx";
 
 function App() {
     const [textFromBackend, setTextFromBackend] = useState("Lädt...");
@@ -20,7 +21,13 @@ function App() {
         fetchData();
     }, []);
 
-    return <h1>{textFromBackend}</h1>;
+    return (
+        <>
+        <h1>{textFromBackend}</h1>
+        <InputField/>
+            <p/>
+        </>
+    );
 }
 
 export default App;

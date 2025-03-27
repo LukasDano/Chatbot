@@ -4,10 +4,10 @@ const reload = () => {
   window.location.reload();
 };
 
-export default function Chatwindow() {
+export default function ReloadButton() {
     return (
         <>
-        <Button variant="primary" onClick={() => reload()}>Primary</Button>
+        <Button variant="info" onClick={() => reload()}>Refresh</Button>
         </>
     );
 }
