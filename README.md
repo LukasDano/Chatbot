@@ -15,3 +15,5 @@ Projektarbeit für die Berufsschule BS14 in Hamburg. Dieser Chatbot wird im Rahm
 
 - [Intellij Community Edition](https://www.jetbrains.com/idea/download/)
 - [WebStorm](https://www.jetbrains.com/de-de/webstorm/download/#section=windows)
+- [Node.js mindestens v20.17.0](https://nodejs.org/en/)
+- [JDK 21 oder neuer](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
