@@ -26,8 +26,9 @@ public class BIOS {
         return datenVerarbeitung.getAnswer();
     }
 
-    private void workWithInput(String data){
 
+    private void workWithInput(String data){
+ //test
         String willkommen = "hallo";
         String welcome = "hello";
 
