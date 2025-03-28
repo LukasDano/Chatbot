@@ -1,10 +1,6 @@
 package com.example.Chatbot.basic;
 
-import org.springframework.web.bind.annotation.*;
-
-@RestController
-@RequestMapping("/input")
-public class BIOS {
+public class Reader {
 
     private String answer;
 
@@ -16,19 +12,8 @@ public class BIOS {
         this.answer = answer;
     }
 
-    @GetMapping("/basic")
-    @CrossOrigin(origins = "http://localhost:5173")
-    public String answerFrontend(@RequestParam String data){
+    public void workWithInput(String data){
 
-        BIOS datenVerarbeitung = new BIOS();
-        datenVerarbeitung.workWithInput(data);
-
-        return datenVerarbeitung.getAnswer();
-    }
-
-
-    private void workWithInput(String data){
- //test
         String willkommen = "hallo";
         String welcome = "hello";
 
@@ -38,5 +23,4 @@ public class BIOS {
             setAnswer("Nochmal bitte!");
         }
     }
-
 }
