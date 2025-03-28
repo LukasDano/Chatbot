@@ -1,11 +1,13 @@
 import {SendButton} from "./buttons.jsx";
-import {getResult} from "../api/sendDataAnd GetResult.js";
+import {sendString} from "../api/sendString.js";
 import {setOutPut} from "./output.jsx";
 
 const inputFieldID = "chatInput";
 
 const sendInput = async () => {
-    const result = await getResult(inputFieldID);
+    const inputValue = document.getElementById(inputFieldID).value;
+
+    const result = await sendString(inputValue);
     setOutPut(result);
 };
 

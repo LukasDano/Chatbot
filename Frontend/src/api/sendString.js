@@ -1,17 +1,18 @@
-import {stringInput} from "../constants.js"
+import {stringInput} from "../constants.ts"
 
-export const getResult = async (inputFieldID) => {
+export const sendString = async (inputValue) => {
 
-    const inputValue = document.getElementById(inputFieldID).value;
+    let result = "Fehler bei der Übermittlung!";
 
     try {
         const response = await fetch(stringInput + inputValue);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return await response.text();
+        result = await response.text();
     } catch (error) {
         console.error("Fehler beim Abrufen der Daten:", error);
-        return "Fehler bei der Übermittlung!"
     }
+
+    return result;
 }
