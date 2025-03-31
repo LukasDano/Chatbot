@@ -1,7 +1,9 @@
 import {Button, Col, Row} from "react-bootstrap";
 import {sendAICall, sendExampleData} from "../api/sendData.js";
+import {IconButtonProps} from "../typescript/interfaces.ts";
+import React from "react";
 
-export const ReloadButton = ({onClick}) => {
+export const ReloadButton: React.FC<IconButtonProps> = ({onClick}) => {
     return (
         <Button variant="info" onClick={(data) => onClick(data)}>
             <img className={"invertedIcon"} src={"pictures/reload.png"} alt="Reload"/>
@@ -9,7 +11,7 @@ export const ReloadButton = ({onClick}) => {
     );
 };
 
-export const SendButton = ({onClick}) => {
+export const SendButton: React.FC<IconButtonProps> = ({onClick}) => {
     return (
         <Button variant="primary" onClick={(data) => onClick(data)}>
             <img className={"invertedIcon"} src={"pictures/send.png"} alt="Send"/>
@@ -17,7 +19,7 @@ export const SendButton = ({onClick}) => {
     );
 };
 
-export const SendToAI = ({onClick}) => {
+export const SendToAI: React.FC<IconButtonProps> = ({onClick}) => {
     return (
         <Button variant="dark" onClick={(data) => onClick(data)}>
             <img className={"invertedIcon"} src={"pictures/ai.png"} alt="AI"/>

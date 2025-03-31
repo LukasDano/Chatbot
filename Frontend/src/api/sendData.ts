@@ -1,4 +1,4 @@
-import {aiInput, dataInput} from "../constants.ts"
+import {aiInput, dataInput} from "../typescript/constants.ts"
 
 const personOne =  {
     "name": "Mueller",
@@ -14,7 +14,8 @@ const personTwo =  {
 
 const persons = [personOne, personTwo];
 
-export const sendJSONData = async (jsonData) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const sendJSONData = async (jsonData: any) => {
     let result = "Fehler bei der Übermittlung!";
     const sendReadyData = JSON.stringify(jsonData);
 
@@ -42,7 +43,7 @@ export const sendJSONData = async (jsonData) => {
 export async function sendAICall() {
     const response = await fetch("../../apiKeys.json");
     const apiKey = await response.json();
-    const content = document.getElementById("chatInput").value;
+    const content = (document.getElementById("chatInput") as HTMLInputElement).value;
 
     const data = {
         "content": content,

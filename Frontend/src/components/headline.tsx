@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Spinner} from "react-bootstrap";
 
 export function Headline() {
-    const [textFromBackend, setTextFromBackend] = useState(<Spinner/>);
+    const [textFromBackend, setTextFromBackend] = useState<React.ReactNode>(<Spinner/>);
     const fallBackText = "Verbindung zum Server konnte nicht hergestellt werden"
 
     useEffect(() => {

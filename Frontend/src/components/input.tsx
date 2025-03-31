@@ -1,11 +1,12 @@
-import { useEffect } from "react";
-import { SendButton } from "./buttons.jsx";
+import React, { useEffect } from "react";
+import { SendButton } from "./buttons";
 import Form from 'react-bootstrap/Form';
-import {Col, Row} from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
+import {InputFieldProps} from "../typescript/interfaces.ts";
 
-export function InputField({ sendInput }) {
+export const InputField: React.FC<InputFieldProps> = ({ sendInput }) => {
     useEffect(() => {
-        const handleKeyDown = (e) => {
+        const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === "Enter") {
                 e.preventDefault();
                 sendInput();
@@ -13,18 +14,16 @@ export function InputField({ sendInput }) {
         };
 
         document.addEventListener("keydown", handleKeyDown);
-
-        // Entferne den Event Listener beim Verlassen des Components
         return () => {
             document.removeEventListener("keydown", handleKeyDown);
         };
-    }, [sendInput]); // Der Hook wird nur erneut ausgeführt, wenn sich sendInput ändert
+    }, [sendInput]);
 
     return (
         <div>
             <Row className="d-flex align-items-center">
                 <Col xs={10}>
-                    <Form.Control id="chatInput" type="text" placeholder="Deine Eingabe" autoComplete={"off"} />
+                    <Form.Control id="chatInput" type="text" placeholder="Deine Eingabe" autoComplete="off" />
                 </Col>
                 <Col xs={2}>
                     <SendButton onClick={sendInput} />
@@ -32,4 +31,4 @@ export function InputField({ sendInput }) {
             </Row>
         </div>
     );
-}
+};

@@ -1,6 +1,6 @@
-import {stringInput} from "../constants.ts"
+import {stringInput} from "../typescript/constants.ts"
 
-export const sendString = async (inputValue) => {
+export const sendString = async (inputValue: string) => {
 
     let result = "Fehler bei der Übermittlung!";
 
