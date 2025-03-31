@@ -1,4 +1,4 @@
-import {dataInput} from "../constants.ts"
+import {aiInput, dataInput} from "../constants.ts"
 
 const personOne =  {
     "name": "Mueller",
@@ -37,6 +37,36 @@ export const sendJSONData = async (jsonData) => {
     }
 
     console.log(result);
+}
+
+export async function sendAICall() {
+    const response = await fetch("../../apiKeys.json");
+    const apiKey = await response.json();
+    const content = document.getElementById("chatInput").value;
+
+    const data = {
+        "content": content,
+        "apiKey": apiKey.ChatGPT,
+    };
+
+    const sendReadyData = JSON.stringify(data);
+
+    try {
+        const response = await fetch(aiInput, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: sendReadyData
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Daten:", error);
+    }
 }
 
 

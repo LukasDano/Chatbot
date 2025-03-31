@@ -3,6 +3,7 @@ import {Spinner} from "react-bootstrap";
 
 export function Headline() {
     const [textFromBackend, setTextFromBackend] = useState(<Spinner/>);
+    const fallBackText = "Verbindung zum Server konnte nicht hergestellt werden"
 
     useEffect(() => {
         async function fetchData() {
@@ -15,7 +16,7 @@ export function Headline() {
                 setTextFromBackend(data);
             } catch (error) {
                 console.error("Fehler beim Abrufen der Daten:", error);
-                setTextFromBackend("Fehler beim Laden der Daten");
+                setTextFromBackend(fallBackText);
             }
         }
         fetchData();
