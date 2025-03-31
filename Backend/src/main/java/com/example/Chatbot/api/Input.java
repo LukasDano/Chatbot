@@ -2,8 +2,11 @@ package com.example.Chatbot.api;
 
 import com.example.Chatbot.basic.Person;
 import com.example.Chatbot.basic.Reader;
+import com.example.Chatbot.chatGPT.BasicAICaller;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/input")
@@ -35,4 +38,16 @@ public class Input {
             return "Fehler im Backend";
         }
     }
+
+    @PostMapping("/ai")
+    public void postResponseFromAI(@RequestBody String data) throws IOException, InterruptedException {
+        JSONObject personData = new JSONObject(data);
+
+        String content = personData.getString("content");
+        String apiKey = personData.getString("apiKey");
+
+        BasicAICaller chatGPT = new BasicAICaller();
+        chatGPT.callChatGPT(apiKey, content);
+    }
+
 }
