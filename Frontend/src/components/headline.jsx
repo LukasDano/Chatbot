@@ -1,7 +1,8 @@
 import {useEffect, useState} from "react";
+import {Spinner} from "react-bootstrap";
 
 export function Headline() {
-    const [textFromBackend, setTextFromBackend] = useState("Lädt...");
+    const [textFromBackend, setTextFromBackend] = useState(<Spinner/>);
 
     useEffect(() => {
         async function fetchData() {
