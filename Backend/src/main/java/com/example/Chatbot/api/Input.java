@@ -1,12 +1,14 @@
 package com.example.Chatbot.api;
 
+import com.example.Chatbot.AI_Integration.Ollama;
 import com.example.Chatbot.basic.Person;
 import com.example.Chatbot.basic.Reader;
-import com.example.Chatbot.chatGPT.BasicAICaller;
+import com.example.Chatbot.AI_Integration.ChatGpt;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/input")
@@ -40,14 +42,13 @@ public class Input {
     }
 
     @PostMapping("/ai")
-    public void postResponseFromAI(@RequestBody String data) throws IOException, InterruptedException {
+    public String postResponseFromOllama(@RequestBody String data) throws IOException, URISyntaxException {
         JSONObject personData = new JSONObject(data);
 
         String content = personData.getString("content");
-        String apiKey = personData.getString("apiKey");
 
-        BasicAICaller chatGPT = new BasicAICaller();
-        chatGPT.callChatGPT(apiKey, content);
+        Ollama ollama = new Ollama();
+        return ollama.callOnLocalhost(content);
     }
 
 }

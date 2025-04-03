@@ -1,4 +1,4 @@
-package com.example.Chatbot.chatGPT;
+package com.example.Chatbot.AI_Integration;
 
 import java.io.IOException;
 
@@ -8,9 +8,9 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 
-public class BasicAICaller {
+public class ChatGpt {
 
-    public void callChatGPT(String apiKey, String content) throws IOException, InterruptedException {
+    public void callWithAPI(String apiKey, String content) throws IOException, InterruptedException {
         var body = String.format("""
                 {
                     "model": "gpt-3.5-turbo",
