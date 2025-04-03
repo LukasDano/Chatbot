@@ -1,5 +1,8 @@
+import {CSSProperties} from "react";
+
 export interface IconButtonProps {
-    onClick: (data: any) => any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onClick: (data: any) => any;
 }
 
 export interface TextFieldProps {
@@ -21,4 +24,6 @@ export interface TextFieldProps {
 
 export interface InputFieldProps {
     sendInput: () => void;
+    sendToAi: () => void;
+    style?: CSSProperties;
 }

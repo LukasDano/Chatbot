@@ -17,3 +17,18 @@ Projektarbeit für die Berufsschule BS14 in Hamburg. Dieser Chatbot wird im Rahm
 - [WebStorm](https://www.jetbrains.com/de-de/webstorm/download/#section=windows)
 - [Node.js mindestens v20.17.0](https://nodejs.org/en/)
 - [JDK 21 oder neuer](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
+- [Ollama Download](https://ollama.com/download)
+
+### Ollama lokal installieren
+
+1. LLM installieren/starten
+
+```
+ollama run llama3.2
+```
+
+2. Prüfen ob das Modell installiert ist
+
+```
+ollama list
+```

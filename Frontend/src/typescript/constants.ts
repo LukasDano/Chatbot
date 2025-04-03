@@ -18,3 +18,30 @@ export const historyStyle: React.CSSProperties = {
     maxWidth: "100ch",
     overflowWrap: "break-word",
 };
+
+export const containerStyle: React.CSSProperties = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100vw",
+    height: "100vh",
+    gap: "2rem",
+};
+
+export const rowStyle: React.CSSProperties = {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "80%",
+};
+
+export const chatSectionStyle: React.CSSProperties = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "80%",
+    gap: "1rem",
+};

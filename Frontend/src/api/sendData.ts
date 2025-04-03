@@ -1,19 +1,5 @@
 import {aiInput, dataInput} from "../typescript/constants.ts"
 
-const personOne =  {
-    "name": "Mueller",
-    "age": 11,
-    "city": "Hamburg",
-};
-
-const personTwo =  {
-    "name": "Schmidt",
-    "age": 21,
-    "city": "Berlin",
-};
-
-const persons = [personOne, personTwo];
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const sendJSONData = async (jsonData: any) => {
     let result = "Fehler bei der Übermittlung!";
@@ -37,17 +23,14 @@ export const sendJSONData = async (jsonData: any) => {
         console.error("Fehler beim Abrufen der Daten:", error);
     }
 
-    console.log(result);
+    return result;
 }
 
-export async function sendAICall() {
-    const response = await fetch("../../apiKeys.json");
-    const apiKey = await response.json();
-    const content = (document.getElementById("chatInput") as HTMLInputElement).value;
+export async function sendStringWithJSON(content: string) {
+    let result = "";
 
     const data = {
         "content": content,
-        "apiKey": apiKey.ChatGPT,
     };
 
     const sendReadyData = JSON.stringify(data);
@@ -64,13 +47,10 @@ export async function sendAICall() {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-
+        result = await response.text();
     } catch (error) {
         console.error("Fehler beim Abrufen der Daten:", error);
     }
-}
 
-
-export function sendExampleData() {
-    persons.forEach(person => sendJSONData(person));
+    return result;
 }
