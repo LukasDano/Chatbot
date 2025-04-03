@@ -21,13 +21,15 @@ Projektarbeit für die Berufsschule BS14 in Hamburg. Dieser Chatbot wird im Rahm
 
 ### Ollama lokal installieren
 
-1. LLM installieren/starten
+1. [Ollama](https://ollama.com/download) herunterladen und installieren
+
+2. LLM installieren/starten
 
 ```
 ollama run llama3.2
 ```
 
-2. Prüfen ob das Modell installiert ist
+3. Prüfen ob das Modell installiert ist
 
 ```
 ollama list
