@@ -1,10 +1,11 @@
 import React from "react";
 import {ChatHistoryProps, TextFieldProps} from "../typescript/interfaces.ts";
-import {historyStyle} from "../typescript/constants.ts";
+import {chatHistory, historyStyle} from "../typescript/constants.ts";
 
 export const ChatHistory: React.FC<ChatHistoryProps> = ({ history }) => {
     return (
         <div id="chatHistory" style={{ display: "none" }}>
+            <div style={chatHistory}>
             {history.map((entry, index) => (
                 entry.type === "input" ? (
                     <InputFieldForHistory key={index} text={entry.content} />
@@ -12,6 +13,7 @@ export const ChatHistory: React.FC<ChatHistoryProps> = ({ history }) => {
                     <OutputFieldForHistory key={index} text={`Antwort: ${entry.content}`} />
                 )
             ))}
+            </div>
         </div>
     );
 };

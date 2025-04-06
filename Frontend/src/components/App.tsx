@@ -6,8 +6,8 @@ import { ChatHistory } from "./chatHistory";
 import {ReloadButton} from "./buttons";
 import {ChatEntry} from "../typescript/interfaces.ts";
 import {Navbar} from "react-bootstrap";
-import {chatSectionStyle, containerStyle} from "../typescript/constants.ts";
-import {sendStringWithJSON} from "../api/sendData.ts";
+import {chatSectionStyle, containerStyle, navbarStyle} from "../typescript/constants.ts";
+import {sendChatToOllama, sendStringWithJSON} from "../api/sendData.ts";
 
 function App() {
     const [history, setHistory] = useState<ChatEntry[]>([]);
@@ -33,7 +33,10 @@ function App() {
         }
     };
 
-    const sendInputToAI = async () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const sendInputToGenerateAPI = async () => {
         const inputElement = document.getElementById("chatInput") as HTMLInputElement;
         if (!inputElement) return;
         const input = inputElement.value;
@@ -57,16 +60,41 @@ function App() {
         }
     };
 
+    const sendInputToChatAPI = async () => {
+        const inputElement = document.getElementById("chatInput") as HTMLInputElement;
+        if (!inputElement) return;
+        const input = inputElement.value;
+        const currentHistory = [...history];
+
+        if (input !== "") {
+            const output = await sendChatToOllama(input, currentHistory);
+
+            if (output.trim() !== "") {
+                setHistory((prevHistory) => [
+                    ...prevHistory,
+                    { type: "input", content: input },
+                    { type: "output", content: output }
+                ]);
+
+                const chatHistoryElement = document.getElementById("chatHistory");
+                if (chatHistoryElement) {
+                    chatHistoryElement.style.display = "block";
+                }
+                inputElement.value = "";
+            }
+        }
+    };
+
     return (
         <>
-        <Navbar>
+        <Navbar className="justify-content-between" style={navbarStyle}>
             <Headline/>
             <ReloadButton onClick={() => window.location.reload()} />
         </Navbar>
         <div style={containerStyle}>
             <div style={chatSectionStyle}>
                 <ChatHistory history={history}/>
-                <InputField sendInput={sendInput} sendToAi={sendInputToAI}/>
+                <InputField sendInput={sendInput} sendToAi={sendInputToChatAPI} />
             </div>
         </div>
         </>

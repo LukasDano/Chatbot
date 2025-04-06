@@ -4,19 +4,27 @@ export const backendBasePath = "http://localhost:8080";
 
 export const stringInput = backendBasePath + "/input/string?text=";
 export const dataInput = backendBasePath + "/input/json?data=";
-export const aiInput = backendBasePath + "/input/ai?data=";
+
+export const ollamaGernerateInput = backendBasePath + "/input/ai/generate?data=";
+export const ollamaChatInput = backendBasePath + "/input/ai/chat?data=";
 
 //Styles
 export const historyStyle: React.CSSProperties = {
     marginBottom: "10px",
-    justifyContent: "flex-end", // Korrektur
+    justifyContent: "flex-end",
     padding: "5px",
     display: "flex",
-    flexDirection: "row-reverse", // Korrektur
+    flexDirection: "row-reverse",
     wordWrap: "break-word",
     whiteSpace: "normal",
     maxWidth: "100ch",
     overflowWrap: "break-word",
+};
+
+export const navbarStyle: React.CSSProperties = {
+    width: "95%",
+    margin: "0 auto",
+    backgroundColor: "#fff",
 };
 
 export const containerStyle: React.CSSProperties = {
@@ -29,14 +37,6 @@ export const containerStyle: React.CSSProperties = {
     gap: "2rem",
 };
 
-export const rowStyle: React.CSSProperties = {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "80%",
-};
-
 export const chatSectionStyle: React.CSSProperties = {
     display: "flex",
     flexDirection: "column",
@@ -44,4 +44,11 @@ export const chatSectionStyle: React.CSSProperties = {
     justifyContent: "center",
     width: "80%",
     gap: "1rem",
+};
+
+export const chatHistory: React.CSSProperties = {
+    overflowY: "auto",
+    maxHeight: "800px",
+    maxWidth: "1080px",
+    overflowX: "hidden",
 };
