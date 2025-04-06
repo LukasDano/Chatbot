@@ -3,7 +3,7 @@ package com.example.Chatbot.api;
 import com.example.Chatbot.AI_Integration.Ollama;
 import com.example.Chatbot.basic.Person;
 import com.example.Chatbot.basic.Reader;
-import com.example.Chatbot.AI_Integration.ChatGpt;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +15,13 @@ import java.net.URISyntaxException;
 @CrossOrigin(origins = "http://localhost:5173")
 public class Input {
 
+    private final Reader READER = new Reader();
+    private final Ollama OLLAMA = new Ollama();
+
     @GetMapping("/string")
     public String getResponseForString(@RequestParam String text) {
-
-        Reader reader = new Reader();
-        reader.workWithInput(text);
-
-        return reader.getAnswer();
+        READER.workWithInput(text);
+        return READER.getAnswer();
     }
 
     @PostMapping("/json")
@@ -41,14 +41,21 @@ public class Input {
         }
     }
 
-    @PostMapping("/ai")
-    public String postResponseFromOllama(@RequestBody String data) throws IOException, URISyntaxException {
+    @PostMapping("/ai/generate")
+    public String postOllamaGenerate(@RequestBody String data) throws IOException, URISyntaxException {
         JSONObject personData = new JSONObject(data);
-
         String content = personData.getString("content");
 
-        Ollama ollama = new Ollama();
-        return ollama.callOnLocalhost(content);
+        return OLLAMA.callGenerateAPI(content);
+    }
+
+    @PostMapping("/ai/chat")
+    public String postOllamaChat(@RequestBody String data) throws IOException, URISyntaxException {
+        JSONObject personData = new JSONObject(data);
+        String content = personData.getString("content");
+        JSONArray chatHistory = personData.getJSONArray("chatHistory");
+
+        return OLLAMA.callChatAPI(content, chatHistory);
     }
 
 }
