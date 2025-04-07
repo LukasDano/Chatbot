@@ -15,7 +15,6 @@ import java.nio.charset.StandardCharsets;
 
 public class Ollama {
 
-    private final String LLAMA_3_2 = "llama3.2";
     private final String GENERATE_API_URL = "http://localhost:11434/api/generate";
     private final String CHAT_API_URL = "http://localhost:11434/api/chat";
 
@@ -30,12 +29,12 @@ public class Ollama {
         return conn;
     }
 
-    public String callGenerateAPI(String promptText) throws IOException, URISyntaxException {
+    public String callGenerateAPI(String promptText, String modell) throws IOException, URISyntaxException {
 
         HttpURLConnection conn = getConnection(GENERATE_API_URL);
 
         String jsonInputString = String.format(
-                "{\"model\": \"%s\", \"prompt\":\"%s\", \"stream\": false}", LLAMA_3_2, promptText
+                "{\"model\": \"%s\", \"prompt\":\"%s\", \"stream\": false}", modell, promptText
         );
 
         try (OutputStream outputStream = conn.getOutputStream()) {
@@ -63,7 +62,7 @@ public class Ollama {
         return responseText;
     }
 
-    public String callChatAPI(String newPrompt, JSONArray chatHistory) throws URISyntaxException, IOException {
+    public String callChatAPI(String newPrompt, JSONArray chatHistory, String modell) throws URISyntaxException, IOException {
         HttpURLConnection conn = getConnection(CHAT_API_URL);
 
         JSONObject userMessage = new JSONObject()
@@ -72,7 +71,7 @@ public class Ollama {
         chatHistory.put(userMessage);
 
         JSONObject payload = new JSONObject();
-        payload.put("model", LLAMA_3_2);
+        payload.put("model", modell);
         payload.put("messages", chatHistory);
         payload.put("stream", false);
 

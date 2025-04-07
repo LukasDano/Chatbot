@@ -15,6 +15,8 @@ import java.net.URISyntaxException;
 @CrossOrigin(origins = "http://localhost:5173")
 public class Input {
 
+    private final String LLAMA_3_2 = "llama3.2";
+
     private final Reader READER = new Reader();
     private final Ollama OLLAMA = new Ollama();
 
@@ -24,38 +26,43 @@ public class Input {
         return READER.getAnswer();
     }
 
-    @PostMapping("/json")
-    public String postResponseForJSON(@RequestBody String data) {
-        try {
-            JSONObject personData = new JSONObject(data);
-
-            String name = personData.getString("name");
-            int age = personData.getInt("age");
-            String city = personData.getString("city");
-
-            Person person = new Person(name, age, city);
-
-            return person.getDescription();
-        } catch (Exception e) {
-            return "Fehler im Backend";
-        }
-    }
-
     @PostMapping("/ai/generate")
     public String postOllamaGenerate(@RequestBody String data) throws IOException, URISyntaxException {
-        JSONObject personData = new JSONObject(data);
-        String content = personData.getString("content");
+        JSONObject bodyJson = new JSONObject(data);
+        String content = bodyJson.getString("content");
 
-        return OLLAMA.callGenerateAPI(content);
+        return OLLAMA.callGenerateAPI(content, LLAMA_3_2);
     }
 
     @PostMapping("/ai/chat")
     public String postOllamaChat(@RequestBody String data) throws IOException, URISyntaxException {
-        JSONObject personData = new JSONObject(data);
-        String content = personData.getString("content");
-        JSONArray chatHistory = personData.getJSONArray("chatHistory");
+        JSONObject bodyJson = new JSONObject(data);
 
-        return OLLAMA.callChatAPI(content, chatHistory);
+        String content = bodyJson.getString("content");
+        JSONArray chatHistory = bodyJson.getJSONArray("chatHistory");
+
+        return OLLAMA.callChatAPI(content, chatHistory, LLAMA_3_2);
     }
 
+    @PostMapping("/ai")
+    public String postResponseFromBackend(@RequestBody String data) throws URISyntaxException, IOException {
+        JSONObject bodyJson = new JSONObject(data);
+
+        String content = bodyJson.getString("content");
+        String modell = bodyJson.getString("modell");
+        JSONArray chatHistory = bodyJson.getJSONArray("chatHistory");
+
+        return workWithCorrectModell(modell, content, chatHistory);
+    }
+
+    private String workWithCorrectModell(String frontendModell, String content, JSONArray chatHistory) throws URISyntaxException, IOException {
+
+        switch (frontendModell) {
+            case "llama3.2":
+                return OLLAMA.callChatAPI(content, chatHistory, LLAMA_3_2);
+            default:
+                READER.workWithInput(content);
+                return READER.getAnswer();
+        }
+    }
 }
