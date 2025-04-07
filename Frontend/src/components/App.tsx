@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { InputField } from "./input";
 import { Headline } from "./Headline.tsx";
-import { sendString } from "../api/sendString";
 import { ChatHistory } from "./chatHistory";
 import { ReloadButton } from "./buttons";
 import { ChatEntry } from "../typescript/interfaces.ts";
@@ -22,27 +21,13 @@ function App() {
 
     const sendInput = async () => {
         const inputElement = document.getElementById("chatInput") as HTMLInputElement;
-        if (!inputElement) return;
-        const input = inputElement.value;
+        const modell = (document.getElementById("modellSelect") as HTMLSelectElement | null)?.value || "";
+        const categoryElement = document.getElementById("categories");
 
-        if (input !== "") {
-            const output = await sendString(input);
-            setHistory((prevHistory) => [
-                ...prevHistory,
-                { type: "input", content: input },
-                { type: "output", content: output }
-            ]);
-
-            const chatHistoryElement = document.getElementById("chatHistory");
-            if (chatHistoryElement) {
-                chatHistoryElement.style.display = "block";
-            }
-            inputElement.value = "";
+        if (categoryElement) {
+            categoryElement.style.display = "none";
         }
-    };
 
-    const sendInputToChatAPI = async (modell: string) => {
-        const inputElement = document.getElementById("chatInput") as HTMLInputElement;
         if (!inputElement) return;
         const input = inputElement.value;
         const currentHistory = [...history];
@@ -63,27 +48,6 @@ function App() {
                 }
                 inputElement.value = "";
             }
-        }
-    };
-
-    const send = ()=> {
-        const modell = (document.getElementById("modellSelect") as HTMLSelectElement | null)?.value || "";
-
-        if (modell !== "") {
-            const categoryElement = document.getElementById("categories");
-
-            if (categoryElement) {
-                categoryElement.style.display = "none";
-            }
-        }
-
-        switch (modell) {
-            case "manuell":
-                sendInput();
-                break;
-            case "llama3.2":
-                sendInputToChatAPI(modell);
-                break;
         }
     };
 
@@ -108,7 +72,7 @@ function App() {
             <div style={chatSectionStyle}>
                 <Categories/>
                 <ChatHistory history={history}/>
-                <InputField sendInput={send} />
+                <InputField sendInput={sendInput} />
             </div>
         </div>
         </>
