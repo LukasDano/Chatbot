@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Form from 'react-bootstrap/Form';
 import { Col, Row } from "react-bootstrap";
 import {InputFieldProps} from "../typescript/interfaces.ts";
-import {SendButton} from "./buttons.tsx";
+import {SendButton} from "./Buttons.tsx";
 
 export const InputField: React.FC<InputFieldProps> = ({ sendInput }) => {
     useEffect(() => {

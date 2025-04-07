@@ -2,7 +2,7 @@ import { useState } from "react";
 import { InputField } from "./input";
 import { Headline } from "./Headline.tsx";
 import { ChatHistory } from "./chatHistory";
-import { ReloadButton } from "./buttons";
+import {InfoButton, ReloadButton} from "./Buttons.tsx";
 import { ChatEntry } from "../typescript/interfaces.ts";
 import { Navbar, Form } from "react-bootstrap";
 import {
@@ -65,6 +65,7 @@ function App() {
                         ))}
                     </Form.Select>
 
+                    <InfoButton onClick={() => window.location.reload()} />
                     <ReloadButton onClick={() => window.location.reload()} />
                 </div>
             </Navbar>
