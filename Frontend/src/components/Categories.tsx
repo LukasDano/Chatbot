@@ -39,12 +39,17 @@ export function Categories() {
         return <Spinner animation="border" />;
     }
 
+    const formatCategoryName = (name: string) => {
+        if (!name) return name;
+        return name.charAt(0).toUpperCase() + name.slice(1);
+    };
+
     return (
         <div id={"categories"}>
             <h1>Kategorien</h1>
             <ul>
-                {categories.map((cat) => (
-                    <li key={cat}>{cat}</li>
+                {categories.map((category) => (
+                    <li key={category}>{formatCategoryName(category)}</li>
                 ))}
             </ul>
         </div>
