@@ -3,6 +3,7 @@ package com.example.Chatbot.api;
 import com.example.Chatbot.AI_Integration.Ollama;
 import com.example.Chatbot.basic.Person;
 import com.example.Chatbot.basic.Reader;
+import com.example.Chatbot.textadventure.Bot;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +18,13 @@ public class Input {
 
     private final String LLAMA_3_2 = "llama3.2";
 
-    private final Reader READER = new Reader();
+    private final Bot BOT = new Bot();
     private final Ollama OLLAMA = new Ollama();
 
     @GetMapping("/string")
     public String getResponseForString(@RequestParam String text) {
-        READER.workWithInput(text);
-        return READER.getAnswer();
+        BOT.workWithInput(text);
+        return BOT.getAnswer();
     }
 
     @PostMapping("/ai/generate")
@@ -61,8 +62,8 @@ public class Input {
             case "llama3.2":
                 return OLLAMA.callChatAPI(content, chatHistory, LLAMA_3_2);
             default:
-                READER.workWithInput(content);
-                return READER.getAnswer();
+                BOT.workWithInput(content);
+                return BOT.getAnswer();
         }
     }
 }
