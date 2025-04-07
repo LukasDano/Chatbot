@@ -1,6 +1,7 @@
 import React from "react";
 
 export const backendBasePath = "http://localhost:8080";
+export const categories = backendBasePath + "/categories";
 export const stringInput = backendBasePath + "/input/string?text=";
 export const backendDataInput = backendBasePath + "/input/ai?data=";
 
