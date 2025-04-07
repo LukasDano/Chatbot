@@ -49,7 +49,7 @@ public class Bot {
     }
 
     private String buildIntroStringForCategory(String category) {
-        return "Alles klar. \n Gerne helfe ich helfe dir mit deinem " + capitalizeFirstLetter(category) + " Problem!";
+        return "Alles klar. \n Gerne helfe ich dir mit deinem " + capitalizeFirstLetter(category) + "-Problem!";
     }
 
     public void takeInput(String data, String category) {
@@ -81,7 +81,7 @@ public class Bot {
 
         if (inputData.equals(EMAIL)) {
             result = buildIntroStringForCategory(EMAIL) +
-                    "Hier findest du unsere Wissendatenbank zu deiner Problemkategorie. " +
+                    " Hier findest du unsere Wissendatenbank zu deiner Problemkategorie. " +
                     "Sollte für dich keine Lösung vorhanden können wir ein Ticket erstellen. Tippe Ticket um ein Ticket zu erstellen und Exit um den Chat zu verlassen.";
             setResponse(result);
             setCategory(EMAIL);
@@ -126,8 +126,3 @@ public class Bot {
     }
 
 }
-
-
-
-
-
