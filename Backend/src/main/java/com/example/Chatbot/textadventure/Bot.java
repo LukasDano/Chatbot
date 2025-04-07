@@ -2,6 +2,17 @@ package com.example.Chatbot.textadventure;
 
 public class Bot {
     private String answer;
+    private final String willkommen = "hallo";
+    private final String email = "email";
+    private final String drucker = "drucker";
+    private final String netzwerk = "netzwerk";
+    private final String zugriff = "zugriff";
+    private final String datensicherung = "datensicherung";
+    private final String peripherie = "peripherie";
+    private final String software = "software";
+    private final String andere = "andere";
+    private final String ticket = "ticket";
+    private final String exit  = "exit";
 
     public String getAnswer() {
         return answer;
@@ -13,15 +24,7 @@ public class Bot {
 
     public void workWithInput(String data) {
 
-        String willkommen = "hallo";
-        String email = "email";
-        String drucker = "drucker";
-        String netzwerk = "netzwerk";
-        String zugriff = "zugriff";
-        String datensicherung = "datensicherung";
-        String peripherie = "peripherie";
-        String software = "software";
-        String andere = "andere";
+
 
         if (data.toLowerCase().equals(willkommen)) {
             setAnswer("Hallo auch!");
@@ -30,7 +33,10 @@ public class Bot {
         }
 
         if (data.toLowerCase().equals(email)) {
-            setAnswer("Ich helfe dir mit deinem Email Problem!");
+            setAnswer("Ich helfe dir mit deinem Email Problem! Hier findest du unsere Wissendatenbank zu deiner Problemkategorie. Sollte für dich keine Lösung vorhanden können wir ein Ticket erstellen. Tippe Ticket um ein Ticket zu erstellen und Exit um den Chat zu verlassen.");
+            if (data.toLowerCase().equals(ticket)){setAnswer("Seit wann besteht ihr Problem");}
+            else if(data.toLowerCase().equals(exit)) {setAnswer( "Schön das Sie ihr Problem lösen konnten, ich wünsche einen schönen Tag!");}
+            else {setAnswer( "Ihre Eingabe ist mir unbekannt!");}
         } else if (data.toLowerCase().equals(drucker)) {
             setAnswer("Ich helfe dir mit deinem Drucker Problem!");
         }
