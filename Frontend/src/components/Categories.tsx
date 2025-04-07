@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
+import {capitalizeFirstLetter} from "../utility/formatData.ts";
 
-export function Categories() {
+export const Categories= () => {
     const [categories, setCategories] = useState<string[] | null>(null);
     const [error, setError] = useState(false);
     const fallBackText = "Verbindung zum Server konnte nicht hergestellt werden";
@@ -39,17 +40,12 @@ export function Categories() {
         return <Spinner animation="border" />;
     }
 
-    const formatCategoryName = (name: string) => {
-        if (!name) return name;
-        return name.charAt(0).toUpperCase() + name.slice(1);
-    };
-
     return (
         <div id={"categories"}>
             <h1>Kategorien</h1>
             <ul>
                 {categories.map((category) => (
-                    <li key={category}>{formatCategoryName(category)}</li>
+                    <li key={category}>{capitalizeFirstLetter(category)}</li>
                 ))}
             </ul>
         </div>

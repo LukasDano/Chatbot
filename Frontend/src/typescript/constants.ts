@@ -5,8 +5,12 @@ export const categories = backendBasePath + "/categories";
 export const stringInput = backendBasePath + "/input/string?text=";
 export const backendDataInput = backendBasePath + "/input/ai?data=";
 
-export const modells = ["manuell", "llama3.2"];
+export const modelNames = {
+    manuell: "manuell",
+    llama3: "llama3.2",
+};
 
+export const modelList = [modelNames.manuell, modelNames.llama3];
 
 //Styles
 export const historyStyle: React.CSSProperties = {
@@ -61,4 +65,15 @@ export const navbarUtility: React.CSSProperties = {
     display: "flex",
     alignItems: "center",
     gap: "10px"
+};
+
+export const disabled: React.CSSProperties = {
+    pointerEvents: "none",
+    cursor: "default",
+    opacity: 0.6,
+};
+
+export const disabledButton: React.CSSProperties = {
+    pointerEvents: "none",
+    cursor: "default",
 };

@@ -1,5 +1,5 @@
 import {Button} from "react-bootstrap";
-import {IconButtonProps} from "../typescript/interfaces.ts";
+import {IconButtonProps, TextButtonProps} from "../typescript/interfaces.ts";
 import React from "react";
 
 export const ReloadButton: React.FC<IconButtonProps> = ({onClick}) => {
@@ -18,9 +18,9 @@ export const SendButton: React.FC<IconButtonProps> = ({onClick}) => {
     );
 };
 
-export const InfoButton: React.FC<IconButtonProps> = ({onClick}) => {
+export const InfoButton: React.FC<IconButtonProps> = ({onClick, title}) => {
     return (
-        <Button variant="info" onClick={(data) => onClick(data)}>
+        <Button variant="info" onClick={(data) => onClick(data)} title={title}>
             <img className={"invertedIcon"} src={"pictures/info.png"} alt="Info"/>
         </Button>
     );
@@ -31,6 +31,12 @@ export const CloseButton: React.FC<IconButtonProps> = ({onClick}) => {
         <Button variant="danger" onClick={(data) => onClick(data)}>
             <img className={"invertedIcon"} src={"pictures/close.png"} alt="Info"/>
         </Button>
+    );
+};
+
+export const TextButton: React.FC<TextButtonProps> = ({displayText, style}) => {
+    return (
+        <Button variant="dark" style={style}>{displayText}</Button>
     );
 };
 

@@ -3,6 +3,7 @@ import {CSSProperties} from "react";
 export interface IconButtonProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onClick: (data: any) => any;
+    title?: string;
 }
 
 export interface TextFieldProps {
@@ -25,4 +26,9 @@ export interface TextFieldProps {
 export interface InputFieldProps {
     sendInput: () => void;
     style?: CSSProperties;
+}
+
+export interface TextButtonProps {
+    displayText: string;
+    style: CSSProperties;
 }

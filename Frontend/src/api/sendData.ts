@@ -1,15 +1,8 @@
 import {backendDataInput} from "../typescript/constants.ts"
-import {ChatEntries} from "../typescript/types.ts";
-import {formatChatEntriesToChatHistory} from "../utility/formatData.ts";
+import {BackendBody} from "../typescript/types.ts";
 
-export async function sendDataToBackend(content: string, modell: string, chatHistory: ChatEntries) {
+export async function sendDataToBackend(data: BackendBody) {
     let result = "";
-
-    const data = {
-        "content": content,
-        "modell": modell,
-        "chatHistory": formatChatEntriesToChatHistory(chatHistory)
-    };
 
     const sendReadyData = JSON.stringify(data);
 

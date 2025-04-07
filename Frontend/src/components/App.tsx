@@ -1,23 +1,25 @@
 import { useState } from "react";
-import { InputField } from "./input";
+import { InputField } from "./Input.tsx";
 import { Headline } from "./Headline.tsx";
-import { ChatHistory } from "./chatHistory";
-import {InfoButton, ReloadButton} from "./Buttons.tsx";
+import { InfoButton, ReloadButton, TextButton } from "./Buttons.tsx";
+import { Categories } from "./Categories.tsx";
+import { ChatHistory } from "./Chathistory.tsx";
 import { ChatEntry } from "../typescript/interfaces.ts";
-import { Navbar, Form } from "react-bootstrap";
+import { Navbar, Form} from "react-bootstrap";
 import {
     chatSectionStyle,
-    containerStyle,
-    modells,
+    containerStyle, disabledButton,
+    modelList, modelNames,
     navbarStyle,
     navbarUtility,
     selectStyle
 } from "../typescript/constants.ts";
 import { sendDataToBackend } from "../api/sendData.ts";
-import {Categories} from "./Categories.tsx";
+import {capitalizeFirstLetter, createBackendBody} from "../utility/formatData.ts";
 
 function App() {
     const [history, setHistory] = useState<ChatEntry[]>([]);
+    const [category, setCategory] = useState<string | null>(null);
 
     const sendInput = async () => {
         const inputElement = document.getElementById("chatInput") as HTMLInputElement;
@@ -33,7 +35,20 @@ function App() {
         const currentHistory = [...history];
 
         if (input !== "") {
-            const output = await sendDataToBackend(input, modell, currentHistory);
+            const backendBody = createBackendBody(input, modell, currentHistory, category);
+            let output = await sendDataToBackend(backendBody);
+
+            if (modell === modelNames.manuell) {
+                const result = JSON.parse(output);
+                output = result.response;
+                const formatedCategoryName = capitalizeFirstLetter(result.category);
+                setCategory(formatedCategoryName);
+            }
+
+            if (modell === modelNames.llama3) {
+                const result = JSON.parse(output);
+                output = result.response;
+            }
 
             if (output.trim() !== "") {
                 setHistory((prevHistory) => [
@@ -57,25 +72,30 @@ function App() {
                 <Headline />
 
                 <div style={navbarUtility}>
+                    {category && (
+                        <TextButton displayText={category} style={disabledButton} />
+                    )}
+
                     <Form.Select id="modellSelect" style={selectStyle}>
-                        {modells.map((modell) => (
+                        {modelList.map((modell) => (
                             <option key={modell} value={modell}>
                                 {modell}
                             </option>
                         ))}
                     </Form.Select>
 
-                    <InfoButton onClick={() => window.location.reload()} />
+                    <InfoButton onClick={() => window.location.reload()} title={"Zeige alle Kategorien an"}/>
                     <ReloadButton onClick={() => window.location.reload()} />
                 </div>
             </Navbar>
-        <div style={containerStyle}>
-            <div style={chatSectionStyle}>
-                <Categories/>
-                <ChatHistory history={history}/>
-                <InputField sendInput={sendInput} />
+
+            <div style={containerStyle}>
+                <div style={chatSectionStyle}>
+                    <Categories/>
+                    <ChatHistory history={history}/>
+                    <InputField sendInput={sendInput} />
+                </div>
             </div>
-        </div>
         </>
     );
 }

@@ -1,4 +1,4 @@
-import {ChatEntries, ChatHistory} from "../typescript/types.ts";
+import {BackendBody, ChatEntries, ChatHistory} from "../typescript/types.ts";
 
 export const formatChatEntriesToChatHistory = (chatEntries: ChatEntries) => {
     const chatHistory: ChatHistory = [];
@@ -14,4 +14,20 @@ export const formatChatEntriesToChatHistory = (chatEntries: ChatEntries) => {
     });
 
     return chatHistory;
+};
+
+export const capitalizeFirstLetter = (name: string) => {
+    if (!name) return name;
+    return name.charAt(0).toUpperCase() + name.slice(1);
+};
+
+export const createBackendBody = (content: string, modell: string, chatHistory: ChatEntries, category?: string | null): BackendBody => {
+    const sendReadyCategory: string = category || "";
+
+    return {
+        "content": content,
+        "modell": modell,
+        "category": sendReadyCategory,
+        "chatHistory": formatChatEntriesToChatHistory(chatHistory)
+    };
 };
