@@ -9,8 +9,7 @@ public enum ServiceCategories {
     PERIPHERIE("peripherie"),
     SOFTWARE("software"),
     ANDERE("andere"),
-    TICKET("ticket"),
-    EXIT("exit");
+    TICKET("ticket");
 
     private final String value;
 

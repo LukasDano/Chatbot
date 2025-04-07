@@ -62,7 +62,7 @@ public class Ollama {
         return responseText;
     }
 
-    public String callChatAPI(String newPrompt, JSONArray chatHistory, String modell) throws URISyntaxException, IOException {
+    public JSONObject callChatAPI(String newPrompt, JSONArray chatHistory, String modell) throws URISyntaxException, IOException {
         HttpURLConnection conn = getConnection(CHAT_API_URL);
 
         JSONObject userMessage = new JSONObject()
@@ -96,6 +96,11 @@ public class Ollama {
         System.out.println("Response: " + responseText);
 
         conn.disconnect();
-        return responseText;
+
+        JSONObject result = new JSONObject();
+
+        result.put("response", responseText);
+
+        return result;
     }
 }

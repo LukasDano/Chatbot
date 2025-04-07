@@ -42,7 +42,7 @@ public class Input {
         String content = bodyJson.getString("content");
         JSONArray chatHistory = bodyJson.getJSONArray("chatHistory");
 
-        return OLLAMA.callChatAPI(content, chatHistory, LLAMA_3_2);
+        return OLLAMA.callChatAPI(content, chatHistory, LLAMA_3_2).getString("response");
     }
 
     @PostMapping("/ai")
@@ -51,19 +51,20 @@ public class Input {
 
         String content = bodyJson.getString("content");
         String modell = bodyJson.getString("modell");
+        String category = bodyJson.optString("category", null);
         JSONArray chatHistory = bodyJson.getJSONArray("chatHistory");
 
-        return workWithCorrectModell(modell, content, chatHistory);
+        return workWithCorrectModell(modell, category, content, chatHistory).toString();
     }
 
-    private String workWithCorrectModell(String frontendModell, String content, JSONArray chatHistory) throws URISyntaxException, IOException {
+    private JSONObject workWithCorrectModell(String frontendModell, String category, String content, JSONArray chatHistory) throws URISyntaxException, IOException {
 
         switch (frontendModell) {
             case "llama3.2":
                 return OLLAMA.callChatAPI(content, chatHistory, LLAMA_3_2);
             default:
-                BOT.workWithInput(content);
-                return BOT.getAnswer();
+                BOT.takeInput(content, category);
+                return BOT.getResult();
         }
     }
 }
