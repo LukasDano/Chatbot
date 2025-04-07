@@ -1,4 +1,4 @@
-package com.example.Chatbot.AI_Integration;
+package com.example.Chatbot.ai_Integration;
 
 import java.io.IOException;
 
