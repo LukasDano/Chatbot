@@ -26,6 +26,14 @@ export const InfoButton: React.FC<IconButtonProps> = ({onClick}) => {
     );
 };
 
+export const CloseButton: React.FC<IconButtonProps> = ({onClick}) => {
+    return (
+        <Button variant="danger" onClick={(data) => onClick(data)}>
+            <img className={"invertedIcon"} src={"pictures/close.png"} alt="Info"/>
+        </Button>
+    );
+};
+
 export const SendToAIButton: React.FC<IconButtonProps> = ({onClick}) => {
     return (
         <Button variant="dark" onClick={(data) => onClick(data)}>
