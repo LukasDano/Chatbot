@@ -8,7 +8,9 @@ public enum ServiceCategories {
     DATENSICHERUNG("datensicherung"),
     PERIPHERIE("peripherie"),
     SOFTWARE("software"),
-    ANDERE("andere");
+    ANDERE("andere"),
+    TICKET("ticket"),
+    EXIT("exit");
 
     private final String value;
 
