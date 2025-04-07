@@ -3,10 +3,11 @@ import React from "react";
 export const backendBasePath = "http://localhost:8080";
 
 export const stringInput = backendBasePath + "/input/string?text=";
-export const dataInput = backendBasePath + "/input/json?data=";
 
-export const ollamaGernerateInput = backendBasePath + "/input/ai/generate?data=";
-export const ollamaChatInput = backendBasePath + "/input/ai/chat?data=";
+export const backendDataInput = backendBasePath + "/input/ai?data=";
+
+export const modells = ["llama3.2", "manuell"];
+
 
 //Styles
 export const historyStyle: React.CSSProperties = {
@@ -51,4 +52,14 @@ export const chatHistory: React.CSSProperties = {
     maxHeight: "800px",
     maxWidth: "1080px",
     overflowX: "hidden",
+};
+
+export const selectStyle: React.CSSProperties = {
+    maxWidth: "200px"
+};
+
+export const navbarUtility: React.CSSProperties = {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px"
 };

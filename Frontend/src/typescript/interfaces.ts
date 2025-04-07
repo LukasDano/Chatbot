@@ -24,6 +24,5 @@ export interface TextFieldProps {
 
 export interface InputFieldProps {
     sendInput: () => void;
-    sendToAi: () => void;
     style?: CSSProperties;
 }
