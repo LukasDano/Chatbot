@@ -1,12 +1,10 @@
 import React from "react";
 
 export const backendBasePath = "http://localhost:8080";
-
 export const stringInput = backendBasePath + "/input/string?text=";
-
 export const backendDataInput = backendBasePath + "/input/ai?data=";
 
-export const modells = ["llama3.2", "manuell"];
+export const modells = ["manuell", "llama3.2"];
 
 
 //Styles
