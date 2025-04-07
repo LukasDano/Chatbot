@@ -2,7 +2,7 @@ import {backendDataInput} from "../typescript/constants.ts"
 import {ChatEntries} from "../typescript/types.ts";
 import {formatChatEntriesToChatHistory} from "../utility/formatData.ts";
 
-export async function sendChatToOllama(content: string, modell: string, chatHistory: ChatEntries) {
+export async function sendDataToBackend(content: string, modell: string, chatHistory: ChatEntries) {
     let result = "";
 
     const data = {

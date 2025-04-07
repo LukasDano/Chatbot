@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { InputField } from "./input";
-import { Headline } from "./headline";
+import { Headline } from "./Headline.tsx";
 import { sendString } from "../api/sendString";
 import { ChatHistory } from "./chatHistory";
 import { ReloadButton } from "./buttons";
@@ -14,7 +14,8 @@ import {
     navbarUtility,
     selectStyle
 } from "../typescript/constants.ts";
-import { sendChatToOllama } from "../api/sendData.ts";
+import { sendDataToBackend } from "../api/sendData.ts";
+import {Categories} from "./Categories.tsx";
 
 function App() {
     const [history, setHistory] = useState<ChatEntry[]>([]);
@@ -47,7 +48,7 @@ function App() {
         const currentHistory = [...history];
 
         if (input !== "") {
-            const output = await sendChatToOllama(input, modell, currentHistory);
+            const output = await sendDataToBackend(input, modell, currentHistory);
 
             if (output.trim() !== "") {
                 setHistory((prevHistory) => [
@@ -67,6 +68,14 @@ function App() {
 
     const send = ()=> {
         const modell = (document.getElementById("modellSelect") as HTMLSelectElement | null)?.value || "";
+
+        if (modell !== "") {
+            const categoryElement = document.getElementById("categories");
+
+            if (categoryElement) {
+                categoryElement.style.display = "none";
+            }
+        }
 
         switch (modell) {
             case "manuell":
@@ -97,6 +106,7 @@ function App() {
             </Navbar>
         <div style={containerStyle}>
             <div style={chatSectionStyle}>
+                <Categories/>
                 <ChatHistory history={history}/>
                 <InputField sendInput={send} />
             </div>

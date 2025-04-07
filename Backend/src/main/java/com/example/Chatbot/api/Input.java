@@ -1,7 +1,6 @@
 package com.example.Chatbot.api;
 
-import com.example.Chatbot.AI_Integration.Ollama;
-import com.example.Chatbot.basic.Person;
+import com.example.Chatbot.ai_Integration.Ollama;
 import com.example.Chatbot.basic.Reader;
 import com.example.Chatbot.textadventure.Bot;
 import org.json.JSONArray;
@@ -19,12 +18,13 @@ public class Input {
     private final String LLAMA_3_2 = "llama3.2";
 
     private final Bot BOT = new Bot();
+    private final Reader READER = new Reader();
     private final Ollama OLLAMA = new Ollama();
 
     @GetMapping("/string")
     public String getResponseForString(@RequestParam String text) {
-        BOT.workWithInput(text);
-        return BOT.getAnswer();
+        READER.workWithInput(text);
+        return READER.getAnswer();
     }
 
     @PostMapping("/ai/generate")
