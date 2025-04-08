@@ -41,7 +41,7 @@ public class Bot {
         return result;
     }
 
-    private static String capitalizeFirstLetter(String input) {
+    private String capitalizeFirstLetter(String input) {
         if (input == null || input.isEmpty()) {
             return input;
         }
@@ -56,22 +56,20 @@ public class Bot {
 
         String inputData = data.toLowerCase();
         String inputCategory;
-        chooseCategory(inputData);
 
-        if (category == null){
+        if (category == null || category.isEmpty()) {
+            chooseCategory(inputData);
             return;
         } else {
             inputCategory = category.toLowerCase();
         }
 
-        switch (inputCategory.toLowerCase()){
-            case "email":
-                if (inputData.contains(TICKET)) {
-                    setResponse("Seit wann besteht ihr Problem");
-                } else {
-                    setResponse("Ihre Eingabe ist mir unbekannt!");
-                }
-                break;
+        if (inputCategory.equals(EMAIL)) {
+            if (inputData.contains(TICKET)) {
+                setResponse("Seit wann besteht ihr Problem");
+            } else {
+                setResponse("Ihre Eingabe ist mir unbekannt!");
+            }
         }
     }
 
