@@ -2,14 +2,12 @@ package com.example.Chatbot.textadventure;
 
 import org.json.JSONObject;
 
-import java.util.Date;
-
 public class Bot {
     private String response;
     private String serviceCategory;
     private String firstOccurrence ;
     private String priority;
-    private boolean othersWithTheSameProblem;
+    private String othersWithTheSameProblem;
 
     private final String EMAIL = ServiceCategories.EMAIL.getValue().toLowerCase();
     private final String DRUCKER = ServiceCategories.DRUCKER.getValue().toLowerCase();
@@ -19,6 +17,12 @@ public class Bot {
     private final String PERIPHERIE = ServiceCategories.PERIPHERIE.getValue().toLowerCase();
     private final String SOFTWARE = ServiceCategories.SOFTWARE.getValue().toLowerCase();
     private final String ANDERE = ServiceCategories.ANDERE.getValue().toLowerCase();
+
+    private final String REPEAT_YOUR_INPUT = "Deine Eingabe war nicht richtig. Bitte gib einen gültigen Wert ein";
+
+    public String getREPEAT_YOUR_INPUT() {
+        return REPEAT_YOUR_INPUT;
+    }
 
     public void setResponse(String response) {
         this.response = response;
@@ -36,7 +40,7 @@ public class Bot {
         this.priority = priority;
     }
 
-    public void setOthersWithTheSameProblem(boolean othersWithTheSameProblem) {
+    public void setOthersWithTheSameProblem(String othersWithTheSameProblem) {
         this.othersWithTheSameProblem = othersWithTheSameProblem;
     }
 
@@ -63,21 +67,40 @@ public class Bot {
         return "Alles klar. \n Gerne helfe ich dir mit deinem " + capitalizeFirstLetter(category) + "-Problem!";
     }
 
+    private boolean isValidPriorityValue(String priority) {
+
+        if (priority.isEmpty()){
+            return true;
+        }
+
+        return ServicePriorities.isValid(priority);
+    }
+
     public void takeInput(String data, String category, String firstOccurrence, String priority, String othersWithTheSameProblem) {
 
         String inputData = data.toLowerCase();
 
         if (category == null || category.isEmpty()) {
             askForServiceCategory(inputData);
-            return;
-        } else if (firstOccurrence == null) {
 
-        } else if (priority == null) {
+        } else if (firstOccurrence == null || firstOccurrence.isEmpty()) {
+            askForFirstOccurrence(inputData);
+
+        } else if (priority == null || priority.isEmpty()) {
+
+            //TODO muss noch gefixt werden, wird so vermutlich nicht funktionieren
+            if (priority != null && !isValidPriorityValue(priority)){
+                setResponse(REPEAT_YOUR_INPUT);
+                return;
+            }
+
+            askForPrio(inputData);
 
         } else if (othersWithTheSameProblem == null) {
+            askForMultiUserProblem(inputData);
 
         } else {
-
+            setResponse("Ein Mitarbeiter wird sich bei Gelegenheit bei dir melden");
         }
 
     }
@@ -87,9 +110,7 @@ public class Bot {
         String nextQuestion = "\n\n Seit wann besteht ihr Problem?";
 
         if (inputData.contains(EMAIL)) {
-            result = buildIntroStringForCategory(EMAIL) +
-                    " Hier findest du unsere Wissendatenbank zu deiner Problemkategorie. " +
-                    "Sollte für dich keine Lösung vorhanden können wir ein Ticket erstellen. Tippe Ticket um ein Ticket zu erstellen und Exit um den Chat zu verlassen.";
+            result = buildIntroStringForCategory(EMAIL);
             setServiceCategory(EMAIL);
 
         } else if (inputData.contains(DRUCKER)) {
@@ -129,16 +150,23 @@ public class Bot {
     }
 
     private void askForFirstOccurrence(String inputData) {
-        String result;
+        String result = "";
         String nextQuestion = "\n\n Welche Priorität würden sie Ihrem Ticket geben?";
 
+        setResponse(result + nextQuestion);
     }
+
     private void askForPrio(String inputData){
-        String result;
+        String result = "";
         String nextQuestion = "\n\n Tritt das Problem auch bei anderen Kollegen auf?";
+
+        setResponse(result + nextQuestion);
     }
+
     private void askForMultiUserProblem(String inputData){
-        String result;
-        String nextQuestion = "\n\n Nun sehen Sie eine Übersicht über ihr Ticket, wenn ihr Problem korrekt erfasst wurde bestätigen Sie dies bitte. ";
+        String result = "";
+        String nextQuestion = "\n\n Nun sehen Sie eine Übersicht über ihr Ticket, wenn ihr Problem korrekt erfasst wurde bestätigen Sie dies bitte.";
+
+        setResponse(result + nextQuestion);
     }
 }

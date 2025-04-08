@@ -1,6 +1,6 @@
 package com.example.Chatbot.textadventure;
 
-public enum ServicePrio {
+public enum ServicePriorities {
     NIEDRIG("niedrig"),
     MITTEL("mittel"),
     HOCH("hoch"),
@@ -9,7 +9,7 @@ public enum ServicePrio {
 
     private final String value;
 
-    ServicePrio(String value) {
+    ServicePriorities(String value) {
         this.value = value;
     }
 
@@ -18,7 +18,7 @@ public enum ServicePrio {
     }
 
     public static boolean isValid(String input) {
-        for (ServicePrio prio : values()) {
+        for (ServicePriorities prio : values()) {
             if (prio.getValue().equalsIgnoreCase(input.trim())) {
                 return true;
             }

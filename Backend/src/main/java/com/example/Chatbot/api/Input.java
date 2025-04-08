@@ -3,14 +3,13 @@ package com.example.Chatbot.api;
 import com.example.Chatbot.aiIntegration.Ollama;
 import com.example.Chatbot.basic.Reader;
 import com.example.Chatbot.textadventure.Bot;
-import com.example.Chatbot.textadventure.ServicePrio;
+import com.example.Chatbot.textadventure.ServicePriorities;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Date;
 
 @RestController
 @RequestMapping("/input")
@@ -24,9 +23,19 @@ public class Input {
     private final Ollama OLLAMA = new Ollama();
 
     @GetMapping("/string")
-    public String getResponseForString(@RequestParam String text) {
-        READER.workWithInput(text);
+    public String getResponseForString(@RequestParam String data) {
+        READER.workWithInput(data);
         return READER.getAnswer();
+    }
+
+    @GetMapping("/servicePrioValidation")
+    public boolean getIsValidServicePrio(@RequestParam String data) {
+        return ServicePriorities.isValid(data);
+    }
+
+    @GetMapping("/wrongInput")
+    public String getWrongInputHandler() {
+        return BOT.getREPEAT_YOUR_INPUT();
     }
 
     @PostMapping("/ai/generate")
