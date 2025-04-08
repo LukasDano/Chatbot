@@ -6,14 +6,7 @@ import { Categories } from "./Categories.tsx";
 import { ChatHistory } from "./Chathistory.tsx";
 import { ChatEntry } from "../typescript/interfaces.ts";
 import {Navbar, Form, Modal} from "react-bootstrap";
-import {
-    chatSectionStyle,
-    containerStyle, disabledButton,
-    modelList, modelNames,
-    navbarStyle,
-    navbarUtility,
-    selectStyle
-} from "../typescript/constants.ts";
+import { chatSectionStyle, containerStyle, disabledButton, modelList, modelNames, navbarStyle, navbarUtility, selectStyle } from "../typescript/constants.ts";
 import { sendDataToBackend } from "../api/sendData.ts";
 import {capitalizeFirstLetter, createBackendBody} from "../utility/formatData.ts";
 
@@ -21,6 +14,10 @@ function App() {
     const [history, setHistory] = useState<ChatEntry[]>([]);
     const [category, setCategory] = useState<string | null>(null);
     const [show, setShow] = useState(false);
+    const [firstOccurrence, setFirstOccurrence] = useState<string | null>(null);
+    const [priority, setPriority] = useState<string | null>(null);
+    const [othersWithTheSameProblem, setOthersWithTheSameProblem] = useState<string | null>(null);
+
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -39,14 +36,19 @@ function App() {
         const currentHistory = [...history];
 
         if (input !== "") {
-            const backendBody = createBackendBody(input, modell, currentHistory, category);
+            const backendBody = createBackendBody(input, modell, currentHistory, category, firstOccurrence, priority, othersWithTheSameProblem);
             let output = await sendDataToBackend(backendBody);
 
             if (modell === modelNames.manuell) {
                 const result = JSON.parse(output);
                 output = result.response;
+
                 const formatedCategoryName = capitalizeFirstLetter(result.category);
                 setCategory(formatedCategoryName);
+
+                if (result.firstOccurrence) setFirstOccurrence(result.firstOccurrence);
+                if (result.priority) setPriority(result.priority);
+                if (result.othersWithTheSameProblem) setOthersWithTheSameProblem(result.othersWithTheSameProblem);
             }
 
             if (modell === modelNames.llama3) {
