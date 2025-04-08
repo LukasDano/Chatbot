@@ -133,5 +133,12 @@ public class Bot {
         String nextQuestion = "\n\n Welche Priorität würden sie Ihrem Ticket geben?";
 
     }
-
+    private void askForPrio(String inputData){
+        String result;
+        String nextQuestion = "\n\n Tritt das Problem auch bei anderen Kollegen auf?";
+    }
+    private void askForMultiUserProblem(String inputData){
+        String result;
+        String nextQuestion = "\n\n Nun sehen Sie eine Übersicht über ihr Ticket, wenn ihr Problem korrekt erfasst wurde bestätigen Sie dies bitte. ";
+    }
 }
