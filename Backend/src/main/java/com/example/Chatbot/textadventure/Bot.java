@@ -2,9 +2,14 @@ package com.example.Chatbot.textadventure;
 
 import org.json.JSONObject;
 
+import java.util.Date;
+
 public class Bot {
     private String response;
-    private String category;
+    private String serviceCategory;
+    private Date firstOccurrence ;
+    private ServicePrio priority;
+    private boolean othersWithTheSameProblem;
 
     private final String EMAIL = ServiceCategories.EMAIL.getValue().toLowerCase();
     private final String DRUCKER = ServiceCategories.DRUCKER.getValue().toLowerCase();
@@ -16,27 +21,34 @@ public class Bot {
     private final String ANDERE = ServiceCategories.ANDERE.getValue().toLowerCase();
     private final String TICKET = ServiceCategories.TICKET.getValue().toLowerCase();
 
-    public String getResponse() {
-        return response;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
     public void setResponse(String response) {
         this.response = response;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setServiceCategory(String serviceCategory) {
+        this.serviceCategory = serviceCategory;
+    }
+
+    public void setFirstOccurrence(Date firstOccurrence) {
+        this.firstOccurrence = firstOccurrence;
+    }
+
+    public void setPriority(ServicePrio priority) {
+        this.priority = priority;
+    }
+
+    public void setOthersWithTheSameProblem(boolean othersWithTheSameProblem) {
+        this.othersWithTheSameProblem = othersWithTheSameProblem;
     }
 
     public JSONObject getResult(){
         JSONObject result = new JSONObject();
 
-        result.put("category", getCategory());
-        result.put("response", getResponse());
+        result.put("category", serviceCategory);
+        result.put("firstOccurrence", firstOccurrence);
+        result.put("priority", priority);
+        result.put("othersWithTheSameProblem", othersWithTheSameProblem);
+        result.put("response", response);
 
         return result;
     }
@@ -58,7 +70,7 @@ public class Bot {
         String inputCategory;
 
         if (category == null || category.isEmpty()) {
-            chooseCategory(inputData);
+            askForServiceCategory(inputData);
             return;
         } else {
             inputCategory = category.toLowerCase();
@@ -66,61 +78,63 @@ public class Bot {
 
         if (inputCategory.equals(EMAIL)) {
             if (inputData.contains(TICKET)) {
-                setResponse("Seit wann besteht ihr Problem");
+
             } else {
                 setResponse("Ihre Eingabe ist mir unbekannt!");
             }
         }
     }
 
-    private void chooseCategory(String inputData) {
-
+    private void askForServiceCategory(String inputData) {
         String result;
+        String nextQuestion = "\n\n Seit wann besteht ihr Problem?";
 
         if (inputData.contains(EMAIL)) {
             result = buildIntroStringForCategory(EMAIL) +
                     " Hier findest du unsere Wissendatenbank zu deiner Problemkategorie. " +
                     "Sollte für dich keine Lösung vorhanden können wir ein Ticket erstellen. Tippe Ticket um ein Ticket zu erstellen und Exit um den Chat zu verlassen.";
-            setResponse(result);
-            setCategory(EMAIL);
+            setServiceCategory(EMAIL);
 
         } else if (inputData.contains(DRUCKER)) {
             result = buildIntroStringForCategory(DRUCKER);
-            setResponse(result);
-            setCategory(DRUCKER);
+            setServiceCategory(DRUCKER);
 
         } else if (inputData.contains(NETZWERK)) {
             result = buildIntroStringForCategory(NETZWERK);
-            setResponse(result);
-            setCategory(NETZWERK);
+            setServiceCategory(NETZWERK);
 
         } else if (inputData.contains(ZUGRIFF)) {
             result = buildIntroStringForCategory(ZUGRIFF);
-            setResponse(result);
-            setCategory(ZUGRIFF);
+            setServiceCategory(ZUGRIFF);
 
         } else if (inputData.contains(DATENSICHERUNG)) {
             result = buildIntroStringForCategory(DATENSICHERUNG);
-            setResponse(result);
-            setCategory(DATENSICHERUNG);
+            setServiceCategory(DATENSICHERUNG);
 
         } else if (inputData.contains(PERIPHERIE)) {
             result = buildIntroStringForCategory(PERIPHERIE);
-            setResponse(result);
-            setCategory(PERIPHERIE);
+            setServiceCategory(PERIPHERIE);
 
         } else if (inputData.contains(SOFTWARE)) {
             result = buildIntroStringForCategory(SOFTWARE);
-            setResponse(result);
-            setCategory(SOFTWARE);
+            setServiceCategory(SOFTWARE);
 
         } else if (inputData.contains(ANDERE)) {
-            setResponse("Ich helfe dir mit deinen anderen Problemen!");
-            setCategory(ANDERE);
+            result = "Ich helfe dir mit deinen anderen Problemen!";
+            setServiceCategory(ANDERE);
 
         } else {
             setResponse("Nochmal bitte!");
+            return;
         }
+
+        setResponse(result + nextQuestion);
+    }
+
+    private void askForFirstOccurrence(String inputData) {
+        String result;
+        String nextQuestion = "\n\n Welche Priorität würden sie Ihrem Ticket geben?";
+
     }
 
 }
