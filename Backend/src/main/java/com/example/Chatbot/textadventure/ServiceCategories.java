@@ -9,8 +9,8 @@ public enum ServiceCategories {
     PERIPHERIE("peripherie"),
     SOFTWARE("software"),
     ANDERE("andere"),
-    TICKET("ticket");
-
+    TICKET("ticket"),
+    WISSEN("wissen");
     private final String value;
 
     ServiceCategories(String value) {
@@ -21,3 +21,4 @@ public enum ServiceCategories {
         return value;
     }
 }
+
