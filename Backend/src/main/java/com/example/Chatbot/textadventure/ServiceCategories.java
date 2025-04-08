@@ -11,6 +11,7 @@ public enum ServiceCategories {
     ANDERE("andere"),
     TICKET("ticket"),
     WISSEN("wissen");
+
     private final String value;
 
     ServiceCategories(String value) {

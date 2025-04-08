@@ -7,8 +7,8 @@ import java.util.Date;
 public class Bot {
     private String response;
     private String serviceCategory;
-    private Date firstOccurrence ;
-    private ServicePrio priority;
+    private String firstOccurrence ;
+    private String priority;
     private boolean othersWithTheSameProblem;
 
     private final String EMAIL = ServiceCategories.EMAIL.getValue().toLowerCase();
@@ -19,7 +19,6 @@ public class Bot {
     private final String PERIPHERIE = ServiceCategories.PERIPHERIE.getValue().toLowerCase();
     private final String SOFTWARE = ServiceCategories.SOFTWARE.getValue().toLowerCase();
     private final String ANDERE = ServiceCategories.ANDERE.getValue().toLowerCase();
-    private final String TICKET = ServiceCategories.TICKET.getValue().toLowerCase();
 
     public void setResponse(String response) {
         this.response = response;
@@ -29,11 +28,11 @@ public class Bot {
         this.serviceCategory = serviceCategory;
     }
 
-    public void setFirstOccurrence(Date firstOccurrence) {
+    public void setFirstOccurrence(String firstOccurrence) {
         this.firstOccurrence = firstOccurrence;
     }
 
-    public void setPriority(ServicePrio priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 
@@ -64,25 +63,23 @@ public class Bot {
         return "Alles klar. \n Gerne helfe ich dir mit deinem " + capitalizeFirstLetter(category) + "-Problem!";
     }
 
-    public void takeInput(String data, String category) {
+    public void takeInput(String data, String category, String firstOccurrence, String priority, String othersWithTheSameProblem) {
 
         String inputData = data.toLowerCase();
-        String inputCategory;
 
         if (category == null || category.isEmpty()) {
             askForServiceCategory(inputData);
             return;
+        } else if (firstOccurrence == null) {
+
+        } else if (priority == null) {
+
+        } else if (othersWithTheSameProblem == null) {
+
         } else {
-            inputCategory = category.toLowerCase();
+
         }
 
-        if (inputCategory.equals(EMAIL)) {
-            if (inputData.contains(TICKET)) {
-
-            } else {
-                setResponse("Ihre Eingabe ist mir unbekannt!");
-            }
-        }
     }
 
     private void askForServiceCategory(String inputData) {

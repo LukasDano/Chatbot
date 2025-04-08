@@ -3,12 +3,14 @@ package com.example.Chatbot.api;
 import com.example.Chatbot.aiIntegration.Ollama;
 import com.example.Chatbot.basic.Reader;
 import com.example.Chatbot.textadventure.Bot;
+import com.example.Chatbot.textadventure.ServicePrio;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Date;
 
 @RestController
 @RequestMapping("/input")
@@ -47,23 +49,27 @@ public class Input {
 
     @PostMapping("/ai")
     public String postResponseFromBackend(@RequestBody String data) throws URISyntaxException, IOException {
-        JSONObject bodyJson = new JSONObject(data);
-
-        String content = bodyJson.getString("content");
-        String modell = bodyJson.getString("modell");
-        String category = bodyJson.optString("category", null);
-        JSONArray chatHistory = bodyJson.getJSONArray("chatHistory");
-
-        return workWithCorrectModell(modell, category, content, chatHistory).toString();
+        return workWithCorrectModell(new JSONObject(data)).toString();
     }
 
-    private JSONObject workWithCorrectModell(String frontendModell, String category, String content, JSONArray chatHistory) throws URISyntaxException, IOException {
+    private JSONObject workWithCorrectModell(JSONObject bodyJson) throws URISyntaxException, IOException {
 
-        switch (frontendModell) {
+        String modell = bodyJson.getString("modell");
+        JSONArray chatHistory = bodyJson.getJSONArray("chatHistory");
+
+        String content = bodyJson.getString("content");
+
+        String category = bodyJson.optString("category", null);
+        String firstOccurrence = bodyJson.optString("firstOccurrence", null);
+        String priority = bodyJson.optString("priority", null);
+        String othersWithTheSameProblem = bodyJson.optString("othersWithTheSameProblem", null);
+
+
+        switch (modell) {
             case "llama3.2":
                 return OLLAMA.callChatAPI(content, chatHistory, LLAMA_3_2);
             default:
-                BOT.takeInput(content, category);
+                BOT.takeInput(content, category, firstOccurrence, priority, othersWithTheSameProblem);
                 return BOT.getResult();
         }
     }
