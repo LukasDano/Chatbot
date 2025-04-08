@@ -16,5 +16,14 @@ public enum ServicePrio {
     public String getValue() {
         return value;
     }
+
+    public static boolean isValid(String input) {
+        for (ServicePrio prio : values()) {
+            if (prio.getValue().equalsIgnoreCase(input.trim())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 

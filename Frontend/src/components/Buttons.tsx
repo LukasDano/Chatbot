@@ -2,6 +2,7 @@ import {Button} from "react-bootstrap";
 import {IconButtonProps, TextButtonProps} from "../typescript/interfaces.ts";
 import React from "react";
 
+
 export const ReloadButton: React.FC<IconButtonProps> = ({onClick}) => {
     return (
         <Button variant="info" onClick={(data) => onClick(data)}>
