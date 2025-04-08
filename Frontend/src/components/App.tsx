@@ -43,6 +43,11 @@ function App() {
                 const result = JSON.parse(output);
                 output = result.response;
 
+                if (result.done) {
+                    //Hier das Modal öffnen (Ticketerstellung)
+                    alert("Fertig mit dem Prozess");
+                }
+
                 const formatedCategoryName = capitalizeFirstLetter(result.category);
                 setCategory(formatedCategoryName);
 
