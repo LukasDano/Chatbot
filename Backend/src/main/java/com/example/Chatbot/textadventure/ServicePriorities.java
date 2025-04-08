@@ -2,7 +2,7 @@ package com.example.Chatbot.textadventure;
 
 public enum ServicePriorities {
     NIEDRIG("niedrig"),
-    MITTEL("mittel"),
+    NORMAL("normal"),
     HOCH("hoch"),
     KRITISCH("kritisch");
 

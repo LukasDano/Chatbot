@@ -33,11 +33,6 @@ public class Input {
         return ServicePriorities.isValid(data);
     }
 
-    @GetMapping("/wrongInput")
-    public String getWrongInputHandler() {
-        return BOT.getREPEAT_YOUR_INPUT();
-    }
-
     @PostMapping("/ai/generate")
     public String postOllamaGenerate(@RequestBody String data) throws IOException, URISyntaxException {
         JSONObject bodyJson = new JSONObject(data);

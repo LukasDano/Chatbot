@@ -6,8 +6,9 @@ public class Bot {
     private String response;
     private String serviceCategory;
     private String firstOccurrence ;
-    private String priority;
+    private String servicePriority;
     private String othersWithTheSameProblem;
+    private boolean done;
 
     private final String EMAIL = ServiceCategories.EMAIL.getValue().toLowerCase();
     private final String DRUCKER = ServiceCategories.DRUCKER.getValue().toLowerCase();
@@ -17,12 +18,6 @@ public class Bot {
     private final String PERIPHERIE = ServiceCategories.PERIPHERIE.getValue().toLowerCase();
     private final String SOFTWARE = ServiceCategories.SOFTWARE.getValue().toLowerCase();
     private final String ANDERE = ServiceCategories.ANDERE.getValue().toLowerCase();
-
-    private final String REPEAT_YOUR_INPUT = "Deine Eingabe war nicht richtig. Bitte gib einen gültigen Wert ein";
-
-    public String getREPEAT_YOUR_INPUT() {
-        return REPEAT_YOUR_INPUT;
-    }
 
     public void setResponse(String response) {
         this.response = response;
@@ -36,12 +31,16 @@ public class Bot {
         this.firstOccurrence = firstOccurrence;
     }
 
-    public void setPriority(String priority) {
-        this.priority = priority;
+    public void setServicePriority(String servicePriority) {
+        this.servicePriority = servicePriority;
     }
 
     public void setOthersWithTheSameProblem(String othersWithTheSameProblem) {
         this.othersWithTheSameProblem = othersWithTheSameProblem;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
 
     public JSONObject getResult(){
@@ -49,9 +48,10 @@ public class Bot {
 
         result.put("category", serviceCategory);
         result.put("firstOccurrence", firstOccurrence);
-        result.put("priority", priority);
+        result.put("priority", servicePriority);
         result.put("othersWithTheSameProblem", othersWithTheSameProblem);
         result.put("response", response);
+        result.put("done", done);
 
         return result;
     }
@@ -87,19 +87,18 @@ public class Bot {
             askForFirstOccurrence(inputData);
 
         } else if (priority == null || priority.isEmpty()) {
-
-            //TODO muss noch gefixt werden, wird so vermutlich nicht funktionieren
-            if (priority != null && !isValidPriorityValue(priority)){
-                setResponse(REPEAT_YOUR_INPUT);
-                return;
-            }
-
             askForPrio(inputData);
 
-        } else if (othersWithTheSameProblem == null) {
+            if (!isValidPriorityValue(servicePriority)){
+                setServicePriority(ServicePriorities.NORMAL.getValue());
+                setResponse("Die Priorität wurde aufgrund deiner ungültigen Eingabe auf mittel gesetzt. " + response);
+            }
+
+        } else if (othersWithTheSameProblem == null || othersWithTheSameProblem.isEmpty()) {
             askForMultiUserProblem(inputData);
 
         } else {
+            setDone(true);
             setResponse("Ein Mitarbeiter wird sich bei Gelegenheit bei dir melden");
         }
 
@@ -151,22 +150,25 @@ public class Bot {
 
     private void askForFirstOccurrence(String inputData) {
         String result = "";
-        String nextQuestion = "\n\n Welche Priorität würden sie Ihrem Ticket geben?";
+        String nextQuestion = "Welche Priorität würden sie Ihrem Ticket geben?";
 
         setResponse(result + nextQuestion);
+        setFirstOccurrence(inputData);
     }
 
     private void askForPrio(String inputData){
         String result = "";
-        String nextQuestion = "\n\n Tritt das Problem auch bei anderen Kollegen auf?";
+        String nextQuestion = "Tritt das Problem auch bei anderen Kollegen auf?";
 
         setResponse(result + nextQuestion);
+        setServicePriority(inputData);
     }
 
     private void askForMultiUserProblem(String inputData){
         String result = "";
-        String nextQuestion = "\n\n Nun sehen Sie eine Übersicht über ihr Ticket, wenn ihr Problem korrekt erfasst wurde bestätigen Sie dies bitte.";
+        String nextQuestion = "Alle nötigen Daten wurden erfasst, soll ein Ticket erstellt werden?";
 
         setResponse(result + nextQuestion);
+        setOthersWithTheSameProblem(inputData);
     }
 }

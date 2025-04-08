@@ -34,7 +34,7 @@ public class ShowCollections {
         List<String> list = new ArrayList<>();
 
         list.add(ServicePriorities.NIEDRIG.getValue());
-        list.add(ServicePriorities.MITTEL.getValue());
+        list.add(ServicePriorities.NORMAL.getValue());
         list.add(ServicePriorities.HOCH.getValue());
         list.add(ServicePriorities.KRITISCH.getValue());
 
