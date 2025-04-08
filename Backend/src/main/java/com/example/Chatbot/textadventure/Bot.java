@@ -66,7 +66,7 @@ public class Bot {
 
         switch (inputCategory.toLowerCase()){
             case "email":
-                if (inputData.equals(TICKET)) {
+                if (inputData.contains(TICKET)) {
                     setResponse("Seit wann besteht ihr Problem");
                 } else {
                     setResponse("Ihre Eingabe ist mir unbekannt!");
@@ -79,44 +79,44 @@ public class Bot {
 
         String result;
 
-        if (inputData.equals(EMAIL)) {
+        if (inputData.contains(EMAIL)) {
             result = buildIntroStringForCategory(EMAIL) +
                     " Hier findest du unsere Wissendatenbank zu deiner Problemkategorie. " +
                     "Sollte für dich keine Lösung vorhanden können wir ein Ticket erstellen. Tippe Ticket um ein Ticket zu erstellen und Exit um den Chat zu verlassen.";
             setResponse(result);
             setCategory(EMAIL);
 
-        } else if (inputData.equals(DRUCKER)) {
+        } else if (inputData.contains(DRUCKER)) {
             result = buildIntroStringForCategory(DRUCKER);
             setResponse(result);
             setCategory(DRUCKER);
 
-        } else if (inputData.equals(NETZWERK)) {
+        } else if (inputData.contains(NETZWERK)) {
             result = buildIntroStringForCategory(NETZWERK);
             setResponse(result);
             setCategory(NETZWERK);
 
-        } else if (inputData.equals(ZUGRIFF)) {
+        } else if (inputData.contains(ZUGRIFF)) {
             result = buildIntroStringForCategory(ZUGRIFF);
             setResponse(result);
             setCategory(ZUGRIFF);
 
-        } else if (inputData.equals(DATENSICHERUNG)) {
+        } else if (inputData.contains(DATENSICHERUNG)) {
             result = buildIntroStringForCategory(DATENSICHERUNG);
             setResponse(result);
             setCategory(DATENSICHERUNG);
 
-        } else if (inputData.equals(PERIPHERIE)) {
+        } else if (inputData.contains(PERIPHERIE)) {
             result = buildIntroStringForCategory(PERIPHERIE);
             setResponse(result);
             setCategory(PERIPHERIE);
 
-        } else if (inputData.equals(SOFTWARE)) {
+        } else if (inputData.contains(SOFTWARE)) {
             result = buildIntroStringForCategory(SOFTWARE);
             setResponse(result);
             setCategory(SOFTWARE);
 
-        } else if (inputData.equals(ANDERE)) {
+        } else if (inputData.contains(ANDERE)) {
             setResponse("Ich helfe dir mit deinen anderen Problemen!");
             setCategory(ANDERE);
 
