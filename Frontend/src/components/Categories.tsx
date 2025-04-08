@@ -42,7 +42,6 @@ export const Categories= () => {
 
     return (
         <div id={"categories"}>
-            <h1>Kategorien</h1>
             <ul>
                 {categories.map((category) => (
                     <li key={category}>{capitalizeFirstLetter(category)}</li>

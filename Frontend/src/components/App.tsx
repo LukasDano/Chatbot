@@ -5,7 +5,7 @@ import { InfoButton, ReloadButton, TextButton } from "./Buttons.tsx";
 import { Categories } from "./Categories.tsx";
 import { ChatHistory } from "./Chathistory.tsx";
 import { ChatEntry } from "../typescript/interfaces.ts";
-import { Navbar, Form} from "react-bootstrap";
+import {Navbar, Form, Modal} from "react-bootstrap";
 import {
     chatSectionStyle,
     containerStyle, disabledButton,
@@ -20,11 +20,15 @@ import {capitalizeFirstLetter, createBackendBody} from "../utility/formatData.ts
 function App() {
     const [history, setHistory] = useState<ChatEntry[]>([]);
     const [category, setCategory] = useState<string | null>(null);
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const sendInput = async () => {
         const inputElement = document.getElementById("chatInput") as HTMLInputElement;
         const modell = (document.getElementById("modellSelect") as HTMLSelectElement | null)?.value || "";
-        const categoryElement = document.getElementById("categories");
+        const categoryElement = document.getElementById("introCategories");
 
         if (categoryElement) {
             categoryElement.style.display = "none";
@@ -68,6 +72,15 @@ function App() {
 
     return (
         <>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Kategorien</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Categories/>
+                </Modal.Body>
+            </Modal>
+
             <Navbar className="justify-content-between" style={navbarStyle}>
                 <Headline />
 
@@ -84,14 +97,17 @@ function App() {
                         ))}
                     </Form.Select>
 
-                    <InfoButton onClick={() => window.location.reload()} title={"Zeige alle Kategorien an"}/>
+                    <InfoButton onClick={handleShow} title={"Zeige alle Kategorien an"}/>
                     <ReloadButton onClick={() => window.location.reload()} />
                 </div>
             </Navbar>
 
             <div style={containerStyle}>
                 <div style={chatSectionStyle}>
-                    <Categories/>
+                    <div id={"introCategories"}>
+                        <h1>Kategorien</h1>
+                        <Categories/>
+                    </div>
                     <ChatHistory history={history}/>
                     <InputField sendInput={sendInput} />
                 </div>
