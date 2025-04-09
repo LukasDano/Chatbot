@@ -1,0 +1,76 @@
+<mxfile host="Electron" modified="2025-04-09T07:59:58.182Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.21 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" version="22.1.21" etag="gUV5K_JAG1Wnmn_e7kpr" type="device">
+  <diagram name="Chatbot Ablauf" id="0">
+    <mxGraphModel dx="716" dy="542" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="A" value="Start" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="B" value="Begrüßung durch Chatbot&lt;br&gt;Kategorie wählen" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry y="100" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C" value="&lt;br&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;Ticket eröffnen&lt;/span&gt;&lt;br&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry y="200" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="D" value="Ticket-Erstellung: Fragen beantworten: - Beschreibung des Problems&amp;nbsp;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry y="300" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="E2" value="Ticket-Erstellung: Fragen beantworten: - Seit wann besteht das Problem?" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry y="380" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="F" value="Zusammenfassung des Tickets anzeigen" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry y="660" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="G" value="Verabschiedung: &quot;Es wird sich jemand mit einer Lösung bei Ihnen melden.&quot;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry y="740" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="H" value="Ende" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry y="820" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="e100" value="" style="endArrow=block;" parent="1" source="A" target="B" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e101" value="" style="endArrow=block;" parent="1" source="B" target="C" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e102" value="" style="endArrow=block;" parent="1" source="C" target="D" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e104" value="" style="endArrow=block;" parent="1" source="D" target="E2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e106" value="" style="endArrow=block;" parent="1" source="F" target="G" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e108" value="" style="endArrow=block;" parent="1" source="G" target="H" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ycWexZd76hfiVODQHucq-8" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="ycWexZd76hfiVODQHucq-13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="80" y="540" as="sourcePoint" />
+            <mxPoint x="80" y="590" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ycWexZd76hfiVODQHucq-9" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="E2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="10" y="510" as="sourcePoint" />
+            <mxPoint x="80" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ycWexZd76hfiVODQHucq-10" value="Ticket-Erstellung: Fragen beantworten: - Wie schätzen&amp;nbsp; Sie die Prio ihres Tickets ein?" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry y="480" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ycWexZd76hfiVODQHucq-13" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry y="570" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ycWexZd76hfiVODQHucq-14" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ycWexZd76hfiVODQHucq-13" target="F">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="10" y="500" as="sourcePoint" />
+            <mxPoint x="60" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
