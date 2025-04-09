@@ -1,5 +1,6 @@
 package com.example.Chatbot.api;
 
+import com.example.Chatbot.Database.JSONWriter;
 import com.example.Chatbot.aiIntegration.Ollama;
 import com.example.Chatbot.basic.Reader;
 import com.example.Chatbot.textadventure.Bot;
@@ -19,6 +20,7 @@ public class Input {
     private final String LLAMA_3_2 = "llama3.2";
 
     private final Bot BOT = new Bot();
+    private final JSONWriter DATABASE_WRITER = new JSONWriter();
     private final Reader READER = new Reader();
     private final Ollama OLLAMA = new Ollama();
 
@@ -31,6 +33,18 @@ public class Input {
     @GetMapping("/servicePrioValidation")
     public boolean getIsValidServicePrio(@RequestParam String data) {
         return ServicePriorities.isValid(data);
+    }
+
+    @PostMapping("/database")
+    public boolean postTicketInDatabase(@RequestBody String data) {
+        JSONObject bodyJson = new JSONObject(data);
+
+        String category = bodyJson.optString("category", "");
+        String firstOccurrence = bodyJson.optString("firstOccurrence", "");
+        String priority = bodyJson.optString("priority", "");
+        String othersWithTheSameProblem = bodyJson.optString("othersWithTheSameProblem", "");
+
+        return true;
     }
 
     @PostMapping("/ai/generate")
@@ -69,12 +83,11 @@ public class Input {
         String othersWithTheSameProblem = bodyJson.optString("othersWithTheSameProblem", null);
 
 
-        switch (modell) {
-            case "llama3.2":
-                return OLLAMA.callChatAPI(content, chatHistory, LLAMA_3_2);
-            default:
-                BOT.takeInput(content, category, firstOccurrence, priority, othersWithTheSameProblem);
-                return BOT.getResult();
+        if (modell.equals("llama3.2")) {
+            return OLLAMA.callChatAPI(content, chatHistory, LLAMA_3_2);
         }
+
+        BOT.takeInput(content, category, firstOccurrence, priority, othersWithTheSameProblem);
+        return BOT.getResult();
     }
 }

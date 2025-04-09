@@ -19,6 +19,10 @@ public class Bot {
     private final String SOFTWARE = ServiceCategories.SOFTWARE.getValue().toLowerCase();
     private final String ANDERE = ServiceCategories.ANDERE.getValue().toLowerCase();
 
+    public boolean getDone() {
+        return done;
+    }
+
     public void setResponse(String response) {
         this.response = response;
     }
@@ -64,7 +68,7 @@ public class Bot {
     }
 
     private String buildIntroStringForCategory(String category) {
-        return "Alles klar. \n Gerne helfe ich dir mit deinem " + capitalizeFirstLetter(category) + "-Problem!";
+        return "Alles klar. Gerne helfe ich dir mit deinem " + capitalizeFirstLetter(category) + "-Problem!";
     }
 
     private boolean isValidPriorityValue(String priority) {
@@ -80,6 +84,15 @@ public class Bot {
 
         String inputData = data.toLowerCase();
 
+        if (done){
+            this.response = "";
+            this.serviceCategory = "";
+            this.firstOccurrence = "";
+            this.servicePriority = "";
+            this.othersWithTheSameProblem = "";
+            this.done = false;
+        }
+
         if (category == null || category.isEmpty()) {
             askForServiceCategory(inputData);
 
@@ -88,11 +101,6 @@ public class Bot {
 
         } else if (priority == null || priority.isEmpty()) {
             askForPrio(inputData);
-
-            if (!isValidPriorityValue(servicePriority)){
-                setServicePriority(ServicePriorities.NORMAL.getValue());
-                setResponse("Die Priorität wurde aufgrund deiner ungültigen Eingabe auf mittel gesetzt. " + response);
-            }
 
         } else if (othersWithTheSameProblem == null || othersWithTheSameProblem.isEmpty()) {
             askForMultiUserProblem(inputData);
@@ -166,9 +174,10 @@ public class Bot {
 
     private void askForMultiUserProblem(String inputData){
         String result = "";
-        String nextQuestion = "Alle nötigen Daten wurden erfasst, soll ein Ticket erstellt werden?";
+        String nextQuestion = "Alle nötigen Daten wurden erfasst, jetzt wird das Ticket erstellt werden.";
 
         setResponse(result + nextQuestion);
         setOthersWithTheSameProblem(inputData);
+        setDone(true);
     }
 }
