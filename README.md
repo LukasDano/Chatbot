@@ -2,6 +2,10 @@
 
 Projektarbeit für die Berufsschule BS14 in Hamburg. Dieser Chatbot wird im Rahmen von Lernfeld 06 - "Serviceanfragen bearbeiten" von Gruppe 10 aus der 3i erstellt.
 
+### Vorschau
+
+![webpage](webpage.png)
+
 ### Videos
 
 - [Setup React-JS with Vite](https://www.youtube.com/watch?v=QYXPMcSKSMM)
