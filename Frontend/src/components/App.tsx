@@ -11,6 +11,7 @@ import { sendDataToBackend } from "../api/sendData.ts";
 import {capitalizeFirstLetter, createBackendBody, createTicketData} from "../utility/formatData.ts";
 import {TicketForm} from "./Ticket.tsx";
 import {valueExistsAndHasValidValue} from "../typescript/script.ts";
+import {saveTicketDataInDatabase} from "../api/postData.ts";
 
 function App() {
     const [history, setHistory] = useState<ChatEntry[]>([]);
@@ -107,7 +108,7 @@ function App() {
                 <Modal.Body>
                     <TicketForm
                         initialData = {createTicketData(category, firstOccurrence, priority, othersWithTheSameProblem)}
-                        onClickSave = {() => window.location.reload()}/>
+                        onClickSave = {(data) => saveTicketDataInDatabase(data)}/>
                 </Modal.Body>
             </Modal>
 
