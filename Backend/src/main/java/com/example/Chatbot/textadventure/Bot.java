@@ -158,7 +158,7 @@ public class Bot {
 
     private void askForFirstOccurrence(String inputData) {
         String result = "";
-        String nextQuestion = "Welche Priorität würden sie Ihrem Ticket geben?";
+        String nextQuestion = "Welche Priorität würden sie Ihrem Ticket geben? (Niedrig, Mittel, Hoch, Kritisch)";
 
         setResponse(result + nextQuestion);
         setFirstOccurrence(inputData);
