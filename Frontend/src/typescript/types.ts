@@ -16,3 +16,10 @@ export type BackendBody = {
     othersWithTheSameProblem: string,
     chatHistory: ChatHistory;
 };
+
+export type TicketContent = {
+    category: string;
+    firstOccurrence: string,
+    priority: string,
+    othersWithTheSameProblem: string,
+};

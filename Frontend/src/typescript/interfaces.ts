@@ -32,3 +32,11 @@ export interface TextButtonProps {
     displayText: string;
     style: CSSProperties;
 }
+
+export interface TicketInputFormProps {
+    source?: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    initialData?: Record<string, any> | null;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onClickSave: (data: any) => void;
+}

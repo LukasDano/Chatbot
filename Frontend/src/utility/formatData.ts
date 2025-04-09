@@ -1,4 +1,4 @@
-import {BackendBody, ChatEntries, ChatHistory} from "../typescript/types.ts";
+import {BackendBody, ChatEntries, ChatHistory, TicketContent} from "../typescript/types.ts";
 
 export const formatChatEntriesToChatHistory = (chatEntries: ChatEntries) => {
     const chatHistory: ChatHistory = [];
@@ -43,5 +43,24 @@ export const createBackendBody = (
         "priority": sendReadyPriority,
         "othersWithTheSameProblem": sendReadyOthersWithTheSameProblem,
         "chatHistory": formatChatEntriesToChatHistory(chatHistory)
+    };
+};
+
+export const createTicketData = (
+    category: string | null,
+    firstOccurrence: string | null,
+    priority: string | null,
+    othersWithTheSameProblem: string | null): TicketContent => {
+
+    const sendReadyCategory: string = category || "";
+    const sendReadyFirstOccurrence: string = firstOccurrence || "";
+    const sendReadyPriority: string = priority || "";
+    const sendReadyOthersWithTheSameProblem: string = othersWithTheSameProblem || "";
+
+    return {
+        "category": sendReadyCategory,
+        "firstOccurrence": sendReadyFirstOccurrence,
+        "priority": sendReadyPriority,
+        "othersWithTheSameProblem": sendReadyOthersWithTheSameProblem,
     };
 };

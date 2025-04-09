@@ -10,3 +10,11 @@ export const validateBackendBodyValues = async (data: BackendBody) => {
 
     return prioIsValid;
 };
+
+export const valueExistsAndHasValidValue = (text: string | null | undefined): boolean => {
+    if (text === "" || text === null || text === undefined) {
+        return false;
+    }
+
+    return true;
+};

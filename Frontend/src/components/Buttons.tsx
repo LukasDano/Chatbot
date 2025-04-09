@@ -48,3 +48,20 @@ export const SendToAIButton: React.FC<IconButtonProps> = ({onClick}) => {
         </Button>
     );
 };
+
+export const DeleteTicket: React.FC<IconButtonProps> = ({onClick}) => {
+    return (
+        <Button variant="danger" onClick={(data) => onClick(data)}>
+            <img className={"invertedIcon"} src={"pictures/delete.png"} alt="AI"/>
+        </Button>
+    );
+};
+
+export const SaveTicket: React.FC<IconButtonProps> = ({onClick}) => {
+    return (
+        <Button variant="success" onClick={(data) => onClick(data)}>
+            <img className={"invertedIcon"} src={"pictures/save.png"} alt="AI"/>
+        </Button>
+    );
+};
+

@@ -1,26 +1,38 @@
 import { useState } from "react";
 import { InputField } from "./Input.tsx";
 import { Headline } from "./Headline.tsx";
-import { InfoButton, ReloadButton, TextButton } from "./Buttons.tsx";
+import {InfoButton, ReloadButton, TextButton} from "./Buttons.tsx";
 import { Categories } from "./Categories.tsx";
 import { ChatHistory } from "./Chathistory.tsx";
 import { ChatEntry } from "../typescript/interfaces.ts";
 import {Navbar, Form, Modal} from "react-bootstrap";
 import { chatSectionStyle, containerStyle, disabledButton, modelList, modelNames, navbarStyle, navbarUtility, selectStyle } from "../typescript/constants.ts";
 import { sendDataToBackend } from "../api/sendData.ts";
-import {capitalizeFirstLetter, createBackendBody} from "../utility/formatData.ts";
+import {capitalizeFirstLetter, createBackendBody, createTicketData} from "../utility/formatData.ts";
+import {TicketForm} from "./Ticket.tsx";
+import {valueExistsAndHasValidValue} from "../typescript/script.ts";
 
 function App() {
     const [history, setHistory] = useState<ChatEntry[]>([]);
     const [category, setCategory] = useState<string | null>(null);
-    const [show, setShow] = useState(false);
     const [firstOccurrence, setFirstOccurrence] = useState<string | null>(null);
     const [priority, setPriority] = useState<string | null>(null);
     const [othersWithTheSameProblem, setOthersWithTheSameProblem] = useState<string | null>(null);
-
+    const [show, setShow] = useState(false);
+    const [showTicket, setShowTicket] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const handleShowTicket = () => setShowTicket(true);
+
+    const resetStates = () => {
+        setCategory('');
+        setShow(false);
+        setFirstOccurrence('');
+        setPriority('');
+        setOthersWithTheSameProblem('');
+    };
 
     const sendInput = async () => {
         const inputElement = document.getElementById("chatInput") as HTMLInputElement;
@@ -43,9 +55,9 @@ function App() {
                 const result = JSON.parse(output);
                 output = result.response;
 
-                if (result.done) {
-                    //Hier das Modal öffnen (Ticketerstellung)
-                    alert("Fertig mit dem Prozess");
+                if (valueExistsAndHasValidValue(result.othersWithTheSameProblem)) {
+                    resetStates();
+                    handleShowTicket();
                 }
 
                 const formatedCategoryName = capitalizeFirstLetter(result.category);
@@ -85,6 +97,17 @@ function App() {
                 </Modal.Header>
                 <Modal.Body>
                     <Categories/>
+                </Modal.Body>
+            </Modal>
+
+            <Modal show={showTicket} onHide={() => window.location.reload()}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Ticketübersicht</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <TicketForm
+                        initialData = {createTicketData(category, firstOccurrence, priority, othersWithTheSameProblem)}
+                        onClickSave = {() => window.location.reload()}/>
                 </Modal.Body>
             </Modal>
 
