@@ -22,9 +22,9 @@ public class JSONWriter {
 
             JSONObject newTicket = new JSONObject();
             newTicket.put("id", nextId);
-            newTicket.put("category", data.optString("category", ""));
+            newTicket.put("serviceCategory", data.optString("serviceCategory", ""));
             newTicket.put("firstOccurrence", data.optString("firstOccurrence", ""));
-            newTicket.put("priority", data.optString("priority", ""));
+            newTicket.put("servicePriority", data.optString("servicePriority", ""));
             newTicket.put("othersWithTheSameProblem", data.optString("othersWithTheSameProblem", ""));
 
             existingTickets.put(newTicket);
