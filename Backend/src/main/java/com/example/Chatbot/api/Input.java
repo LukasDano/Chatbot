@@ -36,15 +36,9 @@ public class Input {
     }
 
     @PostMapping("/database")
-    public boolean postTicketInDatabase(@RequestBody String data) {
+    public void postTicketInDatabase(@RequestBody String data) {
         JSONObject bodyJson = new JSONObject(data);
-
-        String category = bodyJson.optString("category", "");
-        String firstOccurrence = bodyJson.optString("firstOccurrence", "");
-        String priority = bodyJson.optString("priority", "");
-        String othersWithTheSameProblem = bodyJson.optString("othersWithTheSameProblem", "");
-
-        return true;
+        DATABASE_WRITER.saveTicket(bodyJson);
     }
 
     @PostMapping("/ai/generate")
