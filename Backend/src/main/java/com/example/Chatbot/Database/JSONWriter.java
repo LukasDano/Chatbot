@@ -1,4 +1,4 @@
-package com.example.Chatbot.Database;
+package com.example.Chatbot.database;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

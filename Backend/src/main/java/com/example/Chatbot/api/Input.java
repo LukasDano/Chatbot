@@ -1,6 +1,6 @@
 package com.example.Chatbot.api;
 
-import com.example.Chatbot.Database.JSONWriter;
+import com.example.Chatbot.database.JSONWriter;
 import com.example.Chatbot.aiIntegration.Ollama;
 import com.example.Chatbot.basic.Reader;
 import com.example.Chatbot.textadventure.Bot;
